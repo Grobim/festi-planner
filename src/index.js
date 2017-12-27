@@ -8,6 +8,8 @@ import thunk from 'redux-thunk';
 import firebase from 'firebase';
 import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase';
 
+import 'typeface-roboto';
+
 import './index.css';
 import plannerApp from './reducers';
 import App from './App';
