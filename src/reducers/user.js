@@ -9,7 +9,6 @@ export const USER_STATE_CONNECTING = 'USER_STATE_CONNECTING';
 export const USER_STATE_CONNECTED = 'USER_STATE_CONNECTED';
 export const USER_STATE_CONNECTION_ERROR = 'USER_STATE_CONNECTION_ERROR';
 export const USER_STATE_DISCONNECTED = 'USER_STATE_DISCONNECTED';
-export const USER_STATE_DISCONNECTING = 'USER_STATE_DISCONNECTING';
 
 const defaultState = {
   state: USER_STATE_DISCONNECTED
@@ -32,11 +31,6 @@ const user = (state = defaultState, action) => {
       return {
         ...state,
         state: USER_STATE_CONNECTION_ERROR
-      };
-    case USER_DISCONNECT_REQUEST:
-      return {
-        ...state,
-        state: USER_STATE_DISCONNECTING
       };
     case USER_DISCONNECT_SUCCESS:
       return defaultState;

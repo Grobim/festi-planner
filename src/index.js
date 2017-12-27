@@ -5,6 +5,9 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
+import { browserHistory } from 'react-router';
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+
 import firebase from 'firebase';
 import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase';
 
@@ -12,8 +15,8 @@ import 'typeface-roboto';
 
 import './index.css';
 import plannerApp from './reducers';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import Routes from './Routes';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCE2Ko9lTeyotNpf-mZ4cH7WCoTP7faVYc',
@@ -47,14 +50,17 @@ const createStoreWithFirebase = compose(...composers)(createStore);
 
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
-  plannerApp
+  plannerApp,
+  routing: routerReducer
 });
 const initialState = {};
 const store = createStoreWithFirebase(rootReducer, initialState);
 
+const history = syncHistoryWithStore(browserHistory, store);
+
 render(
   <Provider store={store}>
-    <App />
+    <Routes history={history} />
   </Provider>,
   document.getElementById('root')
 );

@@ -7,8 +7,6 @@ import { listenToAuth } from 'actions/user';
 import AppBar from 'containers/AppBar';
 import Drawer from 'containers/Drawer';
 
-import Routes from './Routes';
-
 import './App.css';
 
 const mapDispatchToProps = dispatch => ({
@@ -27,17 +25,15 @@ class App extends Component {
       <div className="App">
         <AppBar />
         <Drawer />
-        <Routes />
+        {this.props.children}
       </div>
     );
   }
 }
 
 App.propTypes = {
-  listenToAuth: PropTypes.func.isRequired
+  listenToAuth: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(App);
+export default connect(null, mapDispatchToProps)(App);

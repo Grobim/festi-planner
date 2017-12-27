@@ -3,7 +3,6 @@ import {
   USER_CONNECT_REQUEST,
   USER_CONNECT_SUCCESS,
   USER_CONNECT_ERROR,
-  USER_DISCONNECT_REQUEST,
   USER_DISCONNECT_SUCCESS
 } from 'reducers/user';
 
@@ -18,10 +17,6 @@ const connectSuccess = userData => ({
 
 const connectError = () => ({
   type: USER_CONNECT_ERROR
-});
-
-const disconnectRequest = () => ({
-  type: USER_DISCONNECT_REQUEST
 });
 
 const disconnectSuccess = () => ({
@@ -68,8 +63,6 @@ export const connect = () => (dispatch) => {
   );
 };
 
-export const disconnect = () => (dispatch) => {
-  dispatch(disconnectRequest());
-
+export const disconnect = () => () => {
   firebase.auth().signOut();
 };
