@@ -13,7 +13,7 @@ import Link from 'components/Link';
 import './AppBar.css';
 
 const AppBar = ({ isConnected, onMenuClick }) => (
-  <MaterialAppBar position="static">
+  <MaterialAppBar position="fixed">
     <Toolbar>
       <IconButton onClick={onMenuClick} className="AppBar-menu" color="contrast" aria-label="Menu">
         <MenuIcon />

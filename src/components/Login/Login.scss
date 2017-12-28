@@ -2,7 +2,15 @@
 
   &-button {
     width: 90%;
+    margin: 12px 5%;
+  }
+
+  &-panel {
     margin: 8px 5%;
+
+    &Subheading {
+      font-size: 0.8em !important;
+    }
   }
 
   &-icon {

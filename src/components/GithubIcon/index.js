@@ -1,3 +1,1 @@
-import GithubIcon from './GithubIcon';
-
-export default GithubIcon;
+export { default } from './GithubIcon';

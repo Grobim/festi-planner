@@ -1,3 +1,1 @@
-import TwitterIcon from './TwitterIcon';
-
-export default TwitterIcon;
+export { default } from './TwitterIcon';

@@ -39,6 +39,23 @@ export const listenToAuth = () => (dispatch, getState) => {
         photoURL,
         uid
       }));
+
+      const userRef = firebase.database().ref(`fcknye-planner/users/${uid}`);
+
+      userRef
+        .once('value')
+        .then((snap) => {
+          const userProfile = snap.val();
+
+          if (!userProfile) {
+            userRef.set({
+              displayName,
+              email,
+              photoURL,
+              uid
+            });
+          }
+        });
     } else {
       const { uid } = getState().plannerApp.user;
 
@@ -50,7 +67,20 @@ export const listenToAuth = () => (dispatch, getState) => {
   });
 };
 
-export const connect = providerKey => (dispatch) => {
+const signInOrSignUp = (mail, password, dispatch) => {
+  firebase.auth().signInWithEmailAndPassword(mail, password).then(
+    null,
+    (error) => {
+      if (error.code === 'auth/user-not-found') {
+        firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(mail, password);
+      } else {
+        dispatch(connectError());
+      }
+    }
+  );
+};
+
+export const connect = providerKey => (dispatch, getState) => {
   let Provider;
 
   switch (providerKey) {
@@ -66,18 +96,29 @@ export const connect = providerKey => (dispatch) => {
     case 'twitter':
       Provider = firebase.auth.TwitterAuthProvider;
       break;
+    case 'password':
+      break;
     default:
       return;
   }
 
   dispatch(connectRequest());
 
-  firebase.auth().signInWithPopup(new Provider()).then(
-    null,
-    () => {
-      dispatch(connectError());
-    }
-  );
+  if (Provider) {
+    firebase.auth().signInWithPopup(new Provider()).then(
+      null,
+      () => {
+        dispatch(connectError());
+      }
+    );
+  } else {
+    const {
+      mail,
+      password
+    } = getState().plannerApp.ui.login;
+
+    signInOrSignUp(mail, password, dispatch);
+  }
 };
 
 export const disconnect = () => () => {
