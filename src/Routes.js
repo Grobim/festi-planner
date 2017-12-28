@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 
 import Home from 'containers/Home';
 import Login from 'containers/Login';
+import Profile from 'containers/Profile';
 import App from './App';
 
 const Routes = ({ history }) => (
@@ -12,6 +13,7 @@ const Routes = ({ history }) => (
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
       <Route path="login" component={Login} />
+      <Route path="profile" component={Profile} />
     </Route>
   </Router>
 );

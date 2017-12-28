@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import { listenToAuth } from 'actions/user';
 
@@ -10,14 +11,14 @@ import Drawer from 'containers/Drawer';
 import './App.css';
 
 const mapDispatchToProps = dispatch => ({
-  listenToAuth: () => {
-    dispatch(listenToAuth());
+  listenToAuth: (getLocation) => {
+    dispatch(listenToAuth(getLocation));
   }
 });
 
 class App extends Component {
   componentDidMount() {
-    this.props.listenToAuth();
+    this.props.listenToAuth(this.props.router.getCurrentLocation);
   }
 
   render() {
@@ -34,8 +35,9 @@ class App extends Component {
 }
 
 App.propTypes = {
+  router: PropTypes.objectOf(PropTypes.any).isRequired,
   listenToAuth: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(withRouter(App));

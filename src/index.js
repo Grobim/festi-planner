@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import { browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 
 import firebase from 'firebase';
 import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase';
@@ -36,7 +36,7 @@ const reduxFirebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const composers = [
-  applyMiddleware(thunk),
+  applyMiddleware(thunk, routerMiddleware(browserHistory)),
   reactReduxFirebase(firebase, reduxFirebaseConfig)
 ];
 

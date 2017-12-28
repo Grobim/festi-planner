@@ -5,6 +5,7 @@ import {
   USER_CONNECT_ERROR,
   USER_DISCONNECT_SUCCESS
 } from 'reducers/user';
+import { push } from 'react-router-redux';
 
 const connectRequest = () => ({
   type: USER_CONNECT_REQUEST
@@ -23,7 +24,7 @@ const disconnectSuccess = () => ({
   type: USER_DISCONNECT_SUCCESS
 });
 
-export const listenToAuth = () => (dispatch, getState) => {
+export const listenToAuth = getLocation => (dispatch, getState) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       const {
@@ -46,6 +47,7 @@ export const listenToAuth = () => (dispatch, getState) => {
         .once('value')
         .then((snap) => {
           const userProfile = snap.val();
+          const currentLocation = getLocation().pathname;
 
           if (!userProfile) {
             userRef.set({
@@ -54,6 +56,10 @@ export const listenToAuth = () => (dispatch, getState) => {
               photoURL,
               uid
             });
+
+            dispatch(push('/profile'));
+          } else if (currentLocation === '/login') {
+            dispatch(push('/'));
           }
         });
     } else {
@@ -61,6 +67,7 @@ export const listenToAuth = () => (dispatch, getState) => {
 
       if (uid) {
         firebase.database().ref(`fcknye-planner/presence/${uid}`).remove();
+
         dispatch(disconnectSuccess());
       }
     }
