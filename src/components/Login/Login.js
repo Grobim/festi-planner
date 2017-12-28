@@ -21,19 +21,19 @@ const Login = ({
     <Grid item xs={12} sm={6}>
       <Button className="Login-button" raised onClick={connectWithGoogle}>
         Sign in with Google
-        <GoogleIcon className="Login-icon" viewBox="0 0 128 128" />
+        <GoogleIcon className="Login-icon" />
       </Button>
       <Button className="Login-button" raised onClick={connectWithFacebook}>
         Sign in with Facebook
-        <FacebookIcon className="Login-icon" viewBox="0 0 128 128" />
+        <FacebookIcon className="Login-icon" />
       </Button>
       <Button className="Login-button" raised onClick={connectWithTwitter}>
         Sign in with Twitter
-        <TwitterIcon className="Login-icon" viewBox="0 0 128 128" />
+        <TwitterIcon className="Login-icon" />
       </Button>
       <Button className="Login-button" raised onClick={connectWithGithub}>
         Sign in with Github
-        <GithubIcon className="Login-icon" viewBox="0 0 128 128" />
+        <GithubIcon className="Login-icon" />
       </Button>
     </Grid>
   </Grid>

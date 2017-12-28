@@ -4,7 +4,7 @@ import SvgIcon from 'material-ui/SvgIcon';
 
 /* eslint-disable max-len */
 const GoogleIcon = props => (
-  <SvgIcon {...props}>
+  <SvgIcon viewBox="0 0 128 128" {...props}>
     <g id="Google">
       <rect clipRule="evenodd" fill="none" fillRule="evenodd" height="128" width="128" />
       <path clipRule="evenodd" d="M27.585,64c0-4.157,0.69-8.143,1.923-11.881L7.938,35.648    C3.734,44.183,1.366,53.801,1.366,64c0,10.191,2.366,19.802,6.563,28.332l21.558-16.503C28.266,72.108,27.585,68.137,27.585,64" fill="#FBBC05" fillRule="evenodd" />

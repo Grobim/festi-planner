@@ -41,7 +41,7 @@ const composers = [
 ];
 
   // eslint-disable-next-line no-underscore-dangle
-if (window.__REDUX_DEVTOOLS_EXTENSION__) {
+if (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION__) {
   // eslint-disable-next-line no-underscore-dangle
   composers.push(window.__REDUX_DEVTOOLS_EXTENSION__());
 }
@@ -58,6 +58,18 @@ const store = createStoreWithFirebase(rootReducer, initialState);
 
 const history = syncHistoryWithStore(browserHistory, store);
 
+if (process.env.NODE_ENV !== 'production') {
+  if (module.hot) {
+    module.hot.accept('./reducers', () => {
+      store.replaceReducer(combineReducers({
+        firebase: firebaseReducer,
+        plannerApp,
+        routing: routerReducer
+      }));
+    });
+  }
+}
+
 render(
   <Provider store={store}>
     <Routes history={history} />
@@ -65,3 +77,14 @@ render(
   document.getElementById('root')
 );
 registerServiceWorker();
+
+if (process.env.NODE_ENV !== 'production' && module.hot) {
+  module.hot.accept('./Routes', () => {
+    render(
+      <Provider store={store}>
+        <Routes history={history} />
+      </Provider>,
+      document.getElementById('root')
+    );
+  });
+}
