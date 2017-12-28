@@ -22,10 +22,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <AppBar />
         <Drawer />
-        {this.props.children}
+        <div className="App-content">
+          {this.props.children}
+        </div>
       </div>
     );
   }

@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
 import MenuIcon from 'material-ui-icons/Menu';
 
-import { Link } from 'react-router';
+import Link from 'components/Link';
 
 import './AppBar.css';
 
@@ -19,7 +19,9 @@ const AppBar = ({ isConnected, onMenuClick }) => (
         <MenuIcon />
       </IconButton>
       <Typography className="AppBar-title" type="title" color="inherit">
-        FckNyE - Planner
+        <Link href="/" to="/">
+          FckNyE - Planner
+        </Link>
       </Typography>
       {!isConnected && (
         <Link href="/login" to="/login">

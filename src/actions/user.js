@@ -23,8 +23,6 @@ const disconnectSuccess = () => ({
   type: USER_DISCONNECT_SUCCESS
 });
 
-const googleProvider = new firebase.auth.GoogleAuthProvider();
-
 export const listenToAuth = () => (dispatch, getState) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -52,10 +50,29 @@ export const listenToAuth = () => (dispatch, getState) => {
   });
 };
 
-export const connect = () => (dispatch) => {
+export const connect = providerKey => (dispatch) => {
+  let Provider;
+
+  switch (providerKey) {
+    case 'google':
+      Provider = firebase.auth.GoogleAuthProvider;
+      break;
+    case 'facebook':
+      Provider = firebase.auth.FacebookAuthProvider;
+      break;
+    case 'github':
+      Provider = firebase.auth.GithubAuthProvider;
+      break;
+    case 'twitter':
+      Provider = firebase.auth.TwitterAuthProvider;
+      break;
+    default:
+      return;
+  }
+
   dispatch(connectRequest());
 
-  firebase.auth().signInWithPopup(googleProvider).then(
+  firebase.auth().signInWithPopup(new Provider()).then(
     null,
     () => {
       dispatch(connectError());
