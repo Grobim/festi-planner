@@ -7,6 +7,7 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Button from 'material-ui/Button';
+import Avatar from 'material-ui/Avatar';
 import { ListItemIcon, ListItemText } from 'material-ui/List';
 
 import MenuIcon from 'material-ui-icons/Menu';
@@ -50,7 +51,8 @@ class AppBar extends Component {
   render() {
     const {
       isConnected,
-      onMenuClick
+      onMenuClick,
+      photoURL
     } = this.props;
 
     return (
@@ -82,7 +84,12 @@ class AppBar extends Component {
                 onClick={this.handleMenuOpen}
                 color="contrast"
               >
-                <AccountCircleIcon />
+                {photoURL && (
+                  <Avatar src={photoURL} />
+                )}
+                {!photoURL && (
+                  <AccountCircleIcon />
+                )}
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -123,7 +130,12 @@ AppBar.propTypes = {
   isConnected: PropTypes.bool.isRequired,
   onMenuClick: PropTypes.func.isRequired,
   goToProfile: PropTypes.func.isRequired,
-  disconnect: PropTypes.func.isRequired
+  disconnect: PropTypes.func.isRequired,
+  photoURL: PropTypes.string
+};
+
+AppBar.defaultProps = {
+  photoURL: undefined
 };
 
 export default AppBar;

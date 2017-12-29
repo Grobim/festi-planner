@@ -50,7 +50,7 @@ const Login = ({
             type="subheading"
             color="secondary"
           >
-            Event if that&apos;s lame...
+            Even if that&apos;s lame...
           </Typography>
           <TextField
             id="mail"

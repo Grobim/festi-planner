@@ -7,8 +7,9 @@ import { toggleDrawer } from 'actions/ui';
 import { USER_STATE_CONNECTED } from 'reducers/user';
 import { disconnect } from 'actions/user';
 
-const mapStateToProps = ({ plannerApp: { user: { state } } }) => ({
-  isConnected: state === USER_STATE_CONNECTED
+const mapStateToProps = ({ plannerApp: { user: { state, photoURL } } }) => ({
+  isConnected: state === USER_STATE_CONNECTED,
+  photoURL
 });
 
 const mapDispatchToPros = dispatch => ({
