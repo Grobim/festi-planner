@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Login from 'components/Login';
 
 import { connect as userConnect } from 'actions/user';
-import { onLoginFieldChange } from 'actions/ui';
+import { onLoginFieldChange } from 'actions/ui/login';
 
 const mapDispatchToProps = dispatch => ({
   connectWithGoogle: () => {

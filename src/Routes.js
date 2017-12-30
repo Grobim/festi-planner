@@ -13,7 +13,7 @@ const Routes = ({ history }) => (
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
       <Route path="login" component={Login} />
-      <Route path="profile" component={Profile} />
+      <Route path="profile/:uid" component={Profile} />
     </Route>
   </Router>
 );

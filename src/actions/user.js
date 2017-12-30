@@ -28,45 +28,41 @@ export const listenToAuth = getLocation => (dispatch, getState) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       const {
+        uid,
         displayName,
-        email,
-        photoURL,
-        uid
+        photoURL
       } = user;
-
-      dispatch(connectSuccess({
-        displayName,
-        email,
-        photoURL,
-        uid
-      }));
 
       const userRef = firebase.database().ref(`fcknye-planner/users/${uid}`);
 
-      userRef
-        .once('value')
-        .then((snap) => {
-          const userProfile = snap.val();
-          const currentLocation = getLocation().pathname;
+      userRef.on('value', (snap) => {
+        const userProfile = snap.val();
+        const currentLocation = getLocation().pathname;
 
-          if (!userProfile) {
-            userRef.set({
-              displayName,
-              email,
-              photoURL,
-              uid
-            });
+        if (!userProfile) {
+          userRef.set({
+            displayName,
+            photoURL
+          });
 
-            dispatch(push('/profile'));
-          } else if (currentLocation === '/login') {
+          dispatch(push(`/profile/${uid}`));
+        } else {
+          dispatch(connectSuccess({
+            displayName: userProfile.displayName,
+            photoURL: userProfile.photoURL,
+            uid
+          }));
+          if (currentLocation === '/login') {
             dispatch(push('/'));
           }
-        });
+        }
+      });
     } else {
       const { uid } = getState().plannerApp.user;
 
       if (uid) {
         firebase.database().ref(`fcknye-planner/presence/${uid}`).remove();
+        firebase.database().ref(`fcknye-planner/users/${uid}`).off('value');
 
         dispatch(disconnectSuccess());
       }

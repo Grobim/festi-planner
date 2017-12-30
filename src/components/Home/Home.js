@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const Home = () => (
-  <div>
+  <Fragment>
     <p className="App-intro">
       To get started, edit <code>src/App.js</code> and save to reload.
     </p>
-  </div>
+  </Fragment>
 );
 
 export default Home;

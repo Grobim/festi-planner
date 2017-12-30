@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import MaterialAppBar from 'material-ui/AppBar';
@@ -39,8 +39,13 @@ class AppBar extends Component {
   }
 
   handleProfileClick = () => {
+    const {
+      goToProfile,
+      uid
+    } = this.props;
+
     this.handleMenuClose();
-    this.props.goToProfile();
+    goToProfile(uid);
   }
 
   handleDisconnectClick = () => {
@@ -77,7 +82,7 @@ class AppBar extends Component {
             </Link>
           )}
           {isConnected && (
-            <div>
+            <Fragment>
               <IconButton
                 aria-owns={this.state.menuIsOpen ? 'menu-appbar' : null}
                 aria-haspopup="true"
@@ -118,7 +123,7 @@ class AppBar extends Component {
                   <ListItemText inset primary="Disconnect" />
                 </MenuItem>
               </Menu>
-            </div>
+            </Fragment>
           )}
         </Toolbar>
       </MaterialAppBar>
@@ -131,11 +136,13 @@ AppBar.propTypes = {
   onMenuClick: PropTypes.func.isRequired,
   goToProfile: PropTypes.func.isRequired,
   disconnect: PropTypes.func.isRequired,
-  photoURL: PropTypes.string
+  photoURL: PropTypes.string,
+  uid: PropTypes.string
 };
 
 AppBar.defaultProps = {
-  photoURL: undefined
+  photoURL: undefined,
+  uid: undefined
 };
 
 export default AppBar;
