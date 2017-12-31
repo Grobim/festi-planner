@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+import { withStyles } from 'material-ui/styles';
+
 import MaterialAppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Menu, { MenuItem } from 'material-ui/Menu';
@@ -16,7 +18,15 @@ import ExitToAppIcon from 'material-ui-icons/ExitToApp';
 
 import Link from 'components/Link';
 
-import './AppBar.css';
+const styles = {
+  menu: {
+    marginLeft: -12,
+    marginRight: 20
+  },
+  title: {
+    flex: 1
+  }
+};
 
 class AppBar extends Component {
   state = {
@@ -57,7 +67,8 @@ class AppBar extends Component {
     const {
       isConnected,
       onMenuClick,
-      photoURL
+      photoURL,
+      classes
     } = this.props;
 
     return (
@@ -65,13 +76,13 @@ class AppBar extends Component {
         <Toolbar>
           <IconButton
             onClick={onMenuClick}
-            className="AppBar-menu"
+            className={classes.menu}
             color="contrast"
             aria-label="Menu"
           >
             <MenuIcon />
           </IconButton>
-          <Typography className="AppBar-title" type="title" color="inherit">
+          <Typography className={classes.title} type="title" color="inherit">
             <Link href="/" to="/">
               FckNyE - Planner
             </Link>
@@ -136,6 +147,7 @@ AppBar.propTypes = {
   onMenuClick: PropTypes.func.isRequired,
   goToProfile: PropTypes.func.isRequired,
   disconnect: PropTypes.func.isRequired,
+  classes: PropTypes.objectOf(PropTypes.any).isRequired,
   photoURL: PropTypes.string,
   uid: PropTypes.string
 };
@@ -145,4 +157,4 @@ AppBar.defaultProps = {
   uid: undefined
 };
 
-export default AppBar;
+export default withStyles(styles)(AppBar);

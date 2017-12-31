@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { withStyles } from 'material-ui/styles';
+
 import Grid from 'material-ui/Grid';
 import Card, { CardContent, CardActions } from 'material-ui/Card';
 import Button from 'material-ui/Button';
@@ -12,7 +14,21 @@ import FacebookIcon from 'components/FacebookIcon';
 import TwitterIcon from 'components/TwitterIcon';
 import GithubIcon from 'components/GithubIcon';
 
-import './Login.css';
+const styles = {
+  button: {
+    width: '90%',
+    margin: '12px 5%'
+  },
+  panel: {
+    margin: '8px 5%'
+  },
+  panelSubheading: {
+    fontSize: '0.8em'
+  },
+  icon: {
+    marginLeft: 5
+  }
+};
 
 const Login = ({
   connectWithGoogle,
@@ -20,33 +36,34 @@ const Login = ({
   connectWithGithub,
   connectWithTwitter,
   handleChange,
-  connectWithPassword
+  connectWithPassword,
+  classes
 }) => (
   <Grid container>
     <Grid item xs={12} sm={6}>
-      <Button className="Login-button" raised onClick={connectWithFacebook}>
+      <Button className={classes.button} raised onClick={connectWithFacebook}>
         Sign in with Facebook
-        <FacebookIcon className="Login-icon" />
+        <FacebookIcon className={classes.icon} />
       </Button>
-      <Button className="Login-button" raised onClick={connectWithGoogle}>
+      <Button className={classes.button} raised onClick={connectWithGoogle}>
         Sign in with Google
-        <GoogleIcon className="Login-icon" />
+        <GoogleIcon className={classes.icon} />
       </Button>
-      <Button className="Login-button" raised onClick={connectWithTwitter}>
+      <Button className={classes.button} raised onClick={connectWithTwitter}>
         Sign in with Twitter
-        <TwitterIcon className="Login-icon" />
+        <TwitterIcon className={classes.icon} />
       </Button>
-      <Button className="Login-button" raised onClick={connectWithGithub}>
+      <Button className={classes.button} raised onClick={connectWithGithub}>
         Sign in with Github
-        <GithubIcon className="Login-icon" />
+        <GithubIcon className={classes.icon} />
       </Button>
     </Grid>
     <Grid item xs={12} sm={6}>
-      <Card className="Login-panel">
+      <Card className={classes.panel}>
         <CardContent>
           <Typography type="headline">With email</Typography>
           <Typography
-            className="Login-panelSubheading"
+            className={classes.panelSubheading}
             type="subheading"
             color="secondary"
           >
@@ -84,7 +101,8 @@ Login.propTypes = {
   connectWithGithub: PropTypes.func.isRequired,
   connectWithTwitter: PropTypes.func.isRequired,
   connectWithPassword: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
+  classes: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-export default Login;
+export default withStyles(styles)(Login);

@@ -165,7 +165,7 @@ class Profile extends Component {
     const reader = new window.FileReader();
     const file = event.target.files[0];
 
-    // Somethings throw an exception, don't care why, fuck it
+    // Something throws an exception, don't care why, fuck it
     try {
       reader.onloadend = () => {
         editAvatar(uid, file);
@@ -242,7 +242,7 @@ class Profile extends Component {
                             InputLabelProps={{
                               shrink: true,
                             }}
-                            helperText="A name is needed to plan nights !"
+                            helperText={isCurrentUser ? 'A name is needed to plan nights !' : undefined}
                             error={editName && !name}
                           />
                         </form>

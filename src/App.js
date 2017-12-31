@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
+import { withStyles } from 'material-ui/styles';
+
 import { listenToAuth } from 'actions/user';
 
 import AppBar from 'containers/AppBar';
 import Drawer from 'containers/Drawer';
 
-import './App.css';
+const styles = {
+  content: {
+    paddingTop: 74,
+    minHeight: 'calc(100% - 74px)'
+  }
+};
 
 const mapDispatchToProps = dispatch => ({
   listenToAuth: (getLocation) => {
@@ -26,7 +33,7 @@ class App extends Component {
       <Fragment>
         <AppBar />
         <Drawer />
-        <div className="App-content">
+        <div className={this.props.classes.content}>
           {this.props.children}
         </div>
       </Fragment>
@@ -37,7 +44,8 @@ class App extends Component {
 App.propTypes = {
   router: PropTypes.objectOf(PropTypes.any).isRequired,
   listenToAuth: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  classes: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(App));
+export default connect(null, mapDispatchToProps)(withRouter(withStyles(styles)(App)));
