@@ -191,7 +191,7 @@ class Profile extends Component {
     } = this.state;
 
     return (
-      <Grid container className={classes.layout}>
+      <Grid container className={classes.layout} spacing={0}>
         <Grid item xs={12} sm={6}>
           <Paper>
             <Grid container>

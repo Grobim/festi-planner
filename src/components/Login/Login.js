@@ -39,7 +39,7 @@ const Login = ({
   connectWithPassword,
   classes
 }) => (
-  <Grid container>
+  <Grid container spacing={0}>
     <Grid item xs={12} sm={6}>
       <Button className={classes.button} raised onClick={connectWithFacebook}>
         Sign in with Facebook
