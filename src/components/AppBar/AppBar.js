@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+import { withRouter } from 'react-router';
+
 import { withStyles } from 'material-ui/styles';
 
 import MaterialAppBar from 'material-ui/AppBar';
@@ -68,7 +70,13 @@ class AppBar extends Component {
       isConnected,
       onMenuClick,
       photoURL,
-      classes
+      classes,
+      location: {
+        pathname,
+        search,
+        query,
+        state
+      }
     } = this.props;
 
     return (
@@ -88,7 +96,20 @@ class AppBar extends Component {
             </Link>
           </Typography>
           {!isConnected && (
-            <Link href="/login" to="/login">
+            <Link
+              href="/login"
+              to={{
+                pathname: '/login',
+                state: {
+                  from: {
+                    pathname,
+                    search,
+                    query,
+                    state
+                  }
+                }
+              }}
+            >
               <Button color="contrast">Login</Button>
             </Link>
           )}
@@ -147,6 +168,7 @@ AppBar.propTypes = {
   onMenuClick: PropTypes.func.isRequired,
   goToProfile: PropTypes.func.isRequired,
   disconnect: PropTypes.func.isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
   photoURL: PropTypes.string,
   uid: PropTypes.string
@@ -157,4 +179,4 @@ AppBar.defaultProps = {
   uid: undefined
 };
 
-export default withStyles(styles)(AppBar);
+export default withStyles(styles)(withRouter(AppBar));

@@ -10,10 +10,10 @@ import App from './App';
 
 const Routes = ({ history }) => (
   <Router history={history}>
-    <Route path="/" component={App}>
+    <Route path="/" exact component={App}>
       <IndexRoute component={Home} />
-      <Route path="login" component={Login} />
-      <Route path="profile/:uid" component={Profile} />
+      <Route path="login" exact component={Login} />
+      <Route path="profile/:uid" exact component={Profile} />
     </Route>
   </Router>
 );
