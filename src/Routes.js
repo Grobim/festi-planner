@@ -3,17 +3,32 @@ import PropTypes from 'prop-types';
 
 import { Router, Route, IndexRoute } from 'react-router';
 
+import Loadable from 'react-loadable';
+
+import Loader from 'components/Loader';
+
 import Home from 'containers/Home';
-import Login from 'containers/Login';
-import Profile from 'containers/Profile';
+
 import App from './App';
+
+const AsyncLogin = Loadable({
+  loader: () => import('containers/Login'),
+  loading: Loader,
+  timeout: 2000
+});
+
+const AsyncProfile = Loadable({
+  loader: () => import('containers/Profile'),
+  loading: Loader,
+  timeout: 2000
+});
 
 const Routes = ({ history }) => (
   <Router history={history}>
     <Route path="/" exact component={App}>
       <IndexRoute component={Home} />
-      <Route path="login" exact component={Login} />
-      <Route path="profile/:uid" exact component={Profile} />
+      <Route path="login" exact component={AsyncLogin} />
+      <Route path="profile/:uid" exact component={AsyncProfile} />
     </Route>
   </Router>
 );

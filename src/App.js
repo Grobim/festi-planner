@@ -13,7 +13,8 @@ import Drawer from 'containers/Drawer';
 const styles = {
   content: {
     paddingTop: 74,
-    minHeight: 'calc(100% - 74px)'
+    minHeight: 'calc(100% - 74px)',
+    display: 'flex'
   }
 };
 

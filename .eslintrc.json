@@ -11,8 +11,7 @@
                 "^actions/",
                 "^components/",
                 "^containers/",
-                "^reducers/",
-                "^helpers/"
+                "^reducers/"
             ]
         }]
     },
