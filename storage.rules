@@ -1,0 +1,11 @@
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read;
+    }
+    match /fcknye-planner/avatars/{userId} {
+    	allow write: if request.auth.uid == userId
+      						 && request.resource.contentType.matches('image/.*');
+    }
+  }
+}

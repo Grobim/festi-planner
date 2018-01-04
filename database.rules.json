@@ -1,0 +1,22 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "dettes": {
+      ".read": false,
+      ".write": false
+    },
+    "fcknye-planner": {
+      ".read": false,
+      ".write": false,
+      "presence": {
+        ".read": true,
+        ".write": true
+      },
+      "users": {
+        ".read": true,
+        ".write": true
+      }
+    }
+  }
+}

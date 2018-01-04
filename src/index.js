@@ -5,7 +5,8 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-import { browserHistory } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
+import { useRouterHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 
 import firebase from 'firebase';
@@ -34,6 +35,9 @@ const reduxFirebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+
+const historyConfig = { basename: process.env.PUBLIC_URL };
+const browserHistory = useRouterHistory(createBrowserHistory)(historyConfig);
 
 const composers = [
   applyMiddleware(thunk, routerMiddleware(browserHistory)),
