@@ -15,7 +15,10 @@
       },
       "users": {
         ".read": true,
-        ".write": true
+        ".write": false,
+        "$uid": {
+          ".write": "$uid === auth.uid"
+        }
       }
     }
   }
