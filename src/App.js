@@ -49,4 +49,4 @@ App.propTypes = {
   classes: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(withStyles(styles)(App)));
+export default connect(null, mapDispatchToProps)(withStyles(styles)(withRouter(App)));

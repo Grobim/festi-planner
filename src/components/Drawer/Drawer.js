@@ -2,9 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MaterialDrawer from 'material-ui/Drawer';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import InboxIcon from 'material-ui-icons/MoveToInbox';
+import EventIcon from 'material-ui-icons/Event';
 
-const Drawer = ({ isOpened, onDrawerClick }) => (
+const Drawer = ({
+  isOpened,
+  onDrawerClick,
+  goTo
+}) => (
   <MaterialDrawer open={isOpened} onClose={onDrawerClick}>
     <List
       tabIndex={0}
@@ -12,29 +16,15 @@ const Drawer = ({ isOpened, onDrawerClick }) => (
       onClick={onDrawerClick}
       onKeyDown={onDrawerClick}
     >
-      <ListItem button>
+      <ListItem
+        role="navigation"
+        href="/events"
+        onClick={goTo('/events')}
+      >
         <ListItemIcon>
-          <InboxIcon />
+          <EventIcon />
         </ListItemIcon>
-        <ListItemText primary="Inbox" />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <InboxIcon />
-        </ListItemIcon>
-        <ListItemText primary="Inbox1" />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <InboxIcon />
-        </ListItemIcon>
-        <ListItemText primary="Inbox2" />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <InboxIcon />
-        </ListItemIcon>
-        <ListItemText primary="Inbox3" />
+        <ListItemText primary="Events" />
       </ListItem>
     </List>
   </MaterialDrawer>
@@ -42,7 +32,8 @@ const Drawer = ({ isOpened, onDrawerClick }) => (
 
 Drawer.propTypes = {
   isOpened: PropTypes.bool.isRequired,
-  onDrawerClick: PropTypes.func.isRequired
+  onDrawerClick: PropTypes.func.isRequired,
+  goTo: PropTypes.func.isRequired
 };
 
 export default Drawer;
