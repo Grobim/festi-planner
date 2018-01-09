@@ -9,6 +9,7 @@ import { listenToAuth } from 'actions/user';
 
 import AppBar from 'containers/AppBar';
 import Drawer from 'containers/Drawer';
+import Snackbars from 'components/Snackbars';
 
 const styles = {
   content: {
@@ -37,6 +38,7 @@ class App extends Component {
         <div className={this.props.classes.content}>
           {this.props.children}
         </div>
+        <Snackbars />
       </Fragment>
     );
   }
