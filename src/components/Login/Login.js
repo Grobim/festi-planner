@@ -27,6 +27,9 @@ const styles = {
   },
   icon: {
     marginLeft: 5
+  },
+  hiddenSubmit: {
+    display: 'none'
   }
 };
 
@@ -38,62 +41,75 @@ const Login = ({
   handleChange,
   connectWithPassword,
   classes
-}) => (
-  <Grid container spacing={0}>
-    <Grid item xs={12} sm={6}>
-      <Button className={classes.button} raised onClick={connectWithFacebook}>
-        Sign in with Facebook
-        <FacebookIcon className={classes.icon} />
-      </Button>
-      <Button className={classes.button} raised onClick={connectWithGoogle}>
-        Sign in with Google
-        <GoogleIcon className={classes.icon} />
-      </Button>
-      <Button className={classes.button} raised onClick={connectWithTwitter}>
-        Sign in with Twitter
-        <TwitterIcon className={classes.icon} />
-      </Button>
-      <Button className={classes.button} raised onClick={connectWithGithub}>
-        Sign in with Github
-        <GithubIcon className={classes.icon} />
-      </Button>
+}) => {
+  const mailConnection = (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+
+    connectWithPassword();
+  };
+
+  return (
+    <Grid container spacing={0}>
+      <Grid item xs={12} sm={6}>
+        <Button className={classes.button} raised onClick={connectWithFacebook}>
+          Sign in with Facebook
+          <FacebookIcon className={classes.icon} />
+        </Button>
+        <Button className={classes.button} raised onClick={connectWithGoogle}>
+          Sign in with Google
+          <GoogleIcon className={classes.icon} />
+        </Button>
+        <Button className={classes.button} raised onClick={connectWithTwitter}>
+          Sign in with Twitter
+          <TwitterIcon className={classes.icon} />
+        </Button>
+        <Button className={classes.button} raised onClick={connectWithGithub}>
+          Sign in with Github
+          <GithubIcon className={classes.icon} />
+        </Button>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Card className={classes.panel}>
+          <CardContent>
+            <Typography type="headline">With email</Typography>
+            <Typography
+              className={classes.panelSubheading}
+              type="subheading"
+              color="secondary"
+            >
+              Even if that&apos;s lame...
+            </Typography>
+            <form onSubmit={mailConnection} name="login-email-form">
+              <TextField
+                id="mail"
+                label="Mail"
+                type="email"
+                fullWidth
+                onChange={handleChange('mail')}
+              />
+              <TextField
+                id="password"
+                label="Password"
+                type="password"
+                fullWidth
+                onChange={handleChange('password')}
+              />
+              <input type="submit" className={classes.hiddenSubmit} />
+            </form>
+          </CardContent>
+          <CardActions>
+            <div style={{ flexGrow: 1 }} />
+            <Button dense color="primary" onClick={mailConnection}>
+              Sign in
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
     </Grid>
-    <Grid item xs={12} sm={6}>
-      <Card className={classes.panel}>
-        <CardContent>
-          <Typography type="headline">With email</Typography>
-          <Typography
-            className={classes.panelSubheading}
-            type="subheading"
-            color="secondary"
-          >
-            Even if that&apos;s lame...
-          </Typography>
-          <TextField
-            id="mail"
-            label="Mail"
-            type="email"
-            fullWidth
-            onChange={handleChange('mail')}
-          />
-          <TextField
-            id="password"
-            label="Password"
-            type="password"
-            fullWidth
-            onChange={handleChange('password')}
-          />
-        </CardContent>
-        <CardActions>
-          <div style={{ flexGrow: 1 }} />
-          <Button dense color="primary" onClick={connectWithPassword}>
-            Sign in
-          </Button>
-        </CardActions>
-      </Card>
-    </Grid>
-  </Grid>
-);
+  );
+};
 
 Login.propTypes = {
   connectWithGoogle: PropTypes.func.isRequired,
