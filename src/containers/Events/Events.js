@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 import Events from 'components/Events';
 
@@ -16,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchEvents());
   },
   onFabClick: () => {
-    console.log('onFabClick');
+    dispatch(push('/event/new'));
   }
 });
 
