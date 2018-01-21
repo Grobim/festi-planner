@@ -14,6 +14,9 @@ const mapStateToProps = ({ plannerApp: { events: { data } } }) => ({
 const mapDispatchToProps = dispatch => ({
   fetchEvents: () => {
     dispatch(fetchEvents());
+  },
+  onFabClick: () => {
+    console.log('onFabClick');
   }
 });
 
