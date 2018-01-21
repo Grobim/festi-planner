@@ -18,7 +18,6 @@
     "globals": {
         "window": true,
         "document": true,
-        "location": true,
-        "fetch": true
+        "location": true
     }
 }

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
@@ -7,7 +7,6 @@ import { CircularProgress } from 'material-ui/Progress';
 
 import EventsFilter from './EventsFilter';
 import EventsList from './EventsList';
-import EventsPagination from './EventsPagination';
 
 const styles = theme => ({
   layout: {
@@ -24,12 +23,7 @@ const Events = ({
   <div className={classes.layout}>
     <EventsFilter />
     {isLoading && <div><CircularProgress size={70} /></div>}
-    {!isLoading && (
-      <Fragment>
-        <EventsList events={events} />
-        <EventsPagination />
-      </Fragment>
-    )}
+    {!isLoading && <EventsList events={events} />}
   </div>
 );
 

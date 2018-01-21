@@ -5,9 +5,7 @@ import sortBy from 'lodash/sortBy';
 
 import {
   EVENTS_FETCH_REQUESTED,
-  EVENTS_FETCH_SUCCESS,
-  EVENTS_FETCH_KEYS_REQUESTED,
-  EVENTS_FETCH_KEYS_SUCCESS
+  EVENTS_FETCH_SUCCESS
 } from 'reducers/events';
 
 const fetchEventsRequest = () => ({
@@ -19,26 +17,8 @@ const fetchEventsReveived = payload => ({
   payload
 });
 
-const fetchKeysRequest = () => ({
-  type: EVENTS_FETCH_KEYS_REQUESTED
-});
-
-const fetchKeysReveived = payload => ({
-  type: EVENTS_FETCH_KEYS_SUCCESS,
-  payload
-});
-
-const createUrl = () => {
-  const chunks = [
-    'https://boiling-fire-3060.firebaseio.com/fcknye-planner/events.json',
-    '?shallow=true'
-  ];
-  return chunks.join('');
-};
-
 export const fetchEvents = () => (dispatch, getState) => {
   dispatch(fetchEventsRequest());
-  dispatch(fetchKeysRequest());
 
   const { query } = getState().plannerApp.events;
 
@@ -55,12 +35,6 @@ export const fetchEvents = () => (dispatch, getState) => {
       }));
 
       dispatch(fetchEventsReveived(sortBy(eventsAsArray, query.sort)));
-    });
-
-  fetch(createUrl(query))
-    .then(res => res.json())
-    .then((dataKeys) => {
-      dispatch(fetchKeysReveived(dataKeys));
     });
 };
 
