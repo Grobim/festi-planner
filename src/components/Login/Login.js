@@ -77,7 +77,6 @@ const Login = ({
             <Typography
               className={classes.panelSubheading}
               type="subheading"
-              color="secondary"
             >
               Even if that&apos;s lame...
             </Typography>

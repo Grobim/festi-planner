@@ -35,7 +35,7 @@ const Loader = ({
       </Fragment>
     );
   } else if (error) {
-    content = <Typography color="accent" type="title">Sorry, there was a problem loading the page.</Typography>;
+    content = <Typography color="error" type="title">Sorry, there was a problem loading the page.</Typography>;
   }
 
   if (content) {

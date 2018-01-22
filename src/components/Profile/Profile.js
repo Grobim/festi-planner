@@ -197,10 +197,9 @@ class Profile extends Component {
             <Grid container>
               <Grid item xs={12} className={classes.avatarLayout}>
                 <Icon color="primary">
-                  {user.profile && user.profile.photoURL && (
+                  {user.profile && user.profile.photoURL ? (
                     <Avatar src={user.profile.photoURL} className={classes.avatarIcon} />
-                  )}
-                  {(!user.profile || !user.profile.photoURL) && (
+                  ) : (
                     <AccountCircleIcon className={classes.avatarIcon} />
                   )}
                 </Icon>
@@ -253,7 +252,7 @@ class Profile extends Component {
                         <IconButton
                           aria-label="Edit"
                           onClick={this.handleEditName}
-                          color={editName ? 'accent' : 'default'}
+                          color={editName ? 'secondary' : 'default'}
                         >
                           <ModeEditIcon />
                         </IconButton>

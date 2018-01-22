@@ -28,7 +28,7 @@ const ReloadSnackbar = ({
     action={
       <Button
         key="undo"
-        color="accent"
+        color="secondary"
         dense
         // eslint-disable-next-line no-restricted-globals
         onClick={() => { location.reload(); }}

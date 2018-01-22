@@ -85,7 +85,7 @@ class AppBar extends Component {
           <IconButton
             onClick={onMenuClick}
             className={classes.menu}
-            color="contrast"
+            color="inherit"
             aria-label="Menu"
           >
             <MenuIcon />
@@ -95,36 +95,17 @@ class AppBar extends Component {
               FckNyE - Planner
             </Link>
           </Typography>
-          {!isConnected && (
-            <Link
-              href="/login"
-              to={{
-                pathname: '/login',
-                state: {
-                  from: {
-                    pathname,
-                    search,
-                    query,
-                    state
-                  }
-                }
-              }}
-            >
-              <Button color="contrast">Login</Button>
-            </Link>
-          )}
-          {isConnected && (
+          {isConnected ? (
             <Fragment>
               <IconButton
                 aria-owns={this.state.menuIsOpen ? 'menu-appbar' : null}
                 aria-haspopup="true"
                 onClick={this.handleMenuOpen}
-                color="contrast"
+                color="inherit"
               >
-                {photoURL && (
+                {photoURL ? (
                   <Avatar src={photoURL} />
-                )}
-                {!photoURL && (
+                ) : (
                   <AccountCircleIcon />
                 )}
               </IconButton>
@@ -156,6 +137,23 @@ class AppBar extends Component {
                 </MenuItem>
               </Menu>
             </Fragment>
+          ) : (
+            <Link
+              href="/login"
+              to={{
+                pathname: '/login',
+                state: {
+                  from: {
+                    pathname,
+                    search,
+                    query,
+                    state
+                  }
+                }
+              }}
+            >
+              <Button color="inherit">Login</Button>
+            </Link>
           )}
         </Toolbar>
       </MaterialAppBar>
