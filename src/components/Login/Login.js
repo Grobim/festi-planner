@@ -34,10 +34,19 @@ const styles = {
 };
 
 class Login extends Component {
+  static propTypes = {
+    connectWithGoogle: PropTypes.func.isRequired,
+    connectWithFacebook: PropTypes.func.isRequired,
+    connectWithGithub: PropTypes.func.isRequired,
+    connectWithTwitter: PropTypes.func.isRequired,
+    connectWithPassword: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.any).isRequired
+  };
+
   state = {
     mail: '',
     password: ''
-  }
+  };
 
   onLoginEmailSubmit = (event) => {
     if (event) {
@@ -54,7 +63,7 @@ class Login extends Component {
     } = this.state;
 
     connectWithPassword(mail, password);
-  }
+  };
 
   handleFieldChange = field => (event) => {
     event.preventDefault();
@@ -62,7 +71,7 @@ class Login extends Component {
     this.setState({
       [field]: event.target.value
     });
-  }
+  };
 
   render() {
     const {
@@ -140,14 +149,5 @@ class Login extends Component {
     );
   }
 }
-
-Login.propTypes = {
-  connectWithGoogle: PropTypes.func.isRequired,
-  connectWithFacebook: PropTypes.func.isRequired,
-  connectWithGithub: PropTypes.func.isRequired,
-  connectWithTwitter: PropTypes.func.isRequired,
-  connectWithPassword: PropTypes.func.isRequired,
-  classes: PropTypes.objectOf(PropTypes.any).isRequired
-};
 
 export default withStyles(styles)(Login);

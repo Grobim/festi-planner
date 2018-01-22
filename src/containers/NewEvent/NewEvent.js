@@ -2,8 +2,16 @@ import { connect } from 'react-redux';
 
 import Event from 'components/Event';
 
+import { createEvent } from 'actions/event';
+
 const mapStateToProps = () => ({
-  eventKey: 'NEW'
+  eventId: 'NEW'
 });
 
-export default connect(mapStateToProps)(Event);
+const mapDispatchToProps = dispatch => ({
+  save: (eventData) => {
+    dispatch(createEvent(eventData));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Event);

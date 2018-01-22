@@ -15,8 +15,10 @@
       },
       "events": {
         ".read": true,
-        ".write": true,
-        ".indexOn": ["lowercaseName"]
+        ".indexOn": ["lowercaseName"],
+        "$eventId": {
+          ".write": "auth !== null && (data.exists() ? (data.child('admins').child(auth.uid).val() === true) : (newData.child('createdBy').val() === auth.uid))"
+        }
       }
     }
   }

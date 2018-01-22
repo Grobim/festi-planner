@@ -162,11 +162,11 @@ class Profile extends Component {
     event.preventDefault();
 
     const { uid, editAvatar } = this.props;
-    const reader = new window.FileReader();
-    const file = event.target.files[0];
 
     // Something throws an exception, don't care why, fuck it
     try {
+      const reader = new window.FileReader();
+      const file = event.target.files[0];
       reader.onloadend = () => {
         editAvatar(uid, file);
       };

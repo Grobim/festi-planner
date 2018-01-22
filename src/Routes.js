@@ -35,6 +35,12 @@ const AsyncNewEvent = Loadable({
   timeout: asyncLoadTimeout
 });
 
+const AsyncEvent = Loadable({
+  loader: () => import('containers/Event'),
+  loading: Loader,
+  timeout: asyncLoadTimeout
+});
+
 const Routes = ({ history }) => (
   <Router history={history}>
     <Route path="/" exact component={App}>
@@ -42,6 +48,7 @@ const Routes = ({ history }) => (
       <Route path="login" exact component={AsyncLogin} />
       <Route path="events" exact component={AsyncEvents} />
       <Route path="event/new" exact component={AsyncNewEvent} />
+      <Route path="event/:eventId" exact component={AsyncEvent} />
       <Route path="profile/:uid" exact component={AsyncProfile} />
     </Route>
   </Router>
