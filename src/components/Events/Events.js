@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
@@ -29,18 +29,20 @@ const Events = ({
   events,
   onFabClick
 }) => (
-  <div className={classes.layout}>
-    {isLoading ? (
-      <CircularProgress size={70} />
-    ) : (
-      <EventsList events={events} />
-    )}
+  <Fragment>
+    <div className={classes.layout}>
+      {isLoading ? (
+        <CircularProgress size={70} />
+      ) : (
+        <EventsList events={events} />
+      )}
+    </div>
     <Fab
       color="primary"
       content={<AddIcon />}
       onClick={onFabClick}
     />
-  </div>
+  </Fragment>
 );
 
 Events.propTypes = {

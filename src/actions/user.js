@@ -90,7 +90,7 @@ const signInOrSignUp = (mail, password, dispatch) => {
   );
 };
 
-export const connect = providerKey => (dispatch, getState) => {
+export const connect = (providerKey, mail, password) => (dispatch) => {
   let Provider;
 
   switch (providerKey) {
@@ -122,11 +122,6 @@ export const connect = providerKey => (dispatch, getState) => {
       }
     );
   } else {
-    const {
-      mail,
-      password
-    } = getState().plannerApp.ui.login;
-
     signInOrSignUp(mail, password, dispatch);
   }
 };
