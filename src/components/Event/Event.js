@@ -9,7 +9,7 @@ import TextField from 'material-ui/TextField';
 
 import CreateIcon from 'material-ui-icons/Create';
 
-import Fab from 'components/Fab';
+import Fab from 'containers/Fab';
 
 const styles = theme => ({
   layout: {
@@ -23,22 +23,24 @@ class Event extends Component {
     eventId: PropTypes.string.isRequired,
     event: PropTypes.objectOf(PropTypes.any),
     syncEvent: PropTypes.func,
+    unsyncEvent: PropTypes.func,
     save: PropTypes.func.isRequired,
     classes: PropTypes.objectOf(PropTypes.any).isRequired
   };
 
   static defaultProps = {
     event: {},
-    syncEvent: noop
+    syncEvent: noop,
+    unsyncEvent: noop
   };
 
   constructor(props) {
     super(props);
 
-    if (props.event.key) {
+    if (props.event.data) {
       this.state = {
         ...this.state,
-        name: props.event.name
+        name: props.event.data.name
       };
     }
   }
@@ -56,6 +58,39 @@ class Event extends Component {
     syncEvent(eventId);
   }
 
+  componentWillReceiveProps(newProps) {
+    const currentName = this.props.event.data && this.props.event.data.name;
+    const newName = newProps.event.data && newProps.event.data.name;
+
+    if (currentName !== newName) {
+      this.setState({
+        name: newName
+      });
+    }
+
+    const currentEventId = this.props.eventId;
+    const newEventId = newProps.eventId;
+
+    if (currentEventId !== newEventId) {
+      const {
+        syncEvent,
+        unsyncEvent
+      } = this.props;
+
+      unsyncEvent(currentEventId);
+      syncEvent(newEventId);
+    }
+  }
+
+  componentWillUnmount() {
+    const {
+      unsyncEvent,
+      eventId
+    } = this.props;
+
+    unsyncEvent(eventId);
+  }
+
   handleEventSubmit = (event) => {
     if (event) {
       event.preventDefault();
@@ -66,10 +101,11 @@ class Event extends Component {
     } = this.state;
 
     const {
-      save
+      save,
+      eventId
     } = this.props;
 
-    save({
+    save(eventId, {
       name
     });
   };

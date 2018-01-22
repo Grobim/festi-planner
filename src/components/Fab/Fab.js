@@ -7,16 +7,11 @@ import Button from 'material-ui/Button';
 
 import Zoom from 'material-ui/transitions/Zoom';
 
-const styles = theme => ({
-  fab: {
-    position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
-  }
-});
+import SnackbarSlide from './Transitions/SnackbarSlide';
 
 const Fab = ({
   content,
+  in: inProp,
   classes,
   theme,
   ...props
@@ -27,27 +22,29 @@ const Fab = ({
   };
 
   return (
-    <Zoom
-      appear
-      in
-      timeout={transitionDuration}
-      unmountOnExit
-    >
-      <Button
-        fab
-        className={classes.fab}
-        {...props}
+    <SnackbarSlide in={inProp}>
+      <Zoom
+        appear
+        in
+        timeout={transitionDuration}
+        unmountOnExit
       >
-        {content}
-      </Button>
-    </Zoom>
+        <Button
+          fab
+          {...props}
+        >
+          {content}
+        </Button>
+      </Zoom>
+    </SnackbarSlide>
   );
 };
 
 Fab.propTypes = {
+  in: PropTypes.bool.isRequired,
   content: PropTypes.element.isRequired,
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
   theme: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(Fab);
+export default withStyles(null, { withTheme: true })(Fab);

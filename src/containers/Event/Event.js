@@ -2,18 +2,32 @@ import { connect } from 'react-redux';
 
 import Event from 'components/Event';
 
-const mapStateToProps = (state, {
+import {
+  syncEvent,
+  unsyncEvent,
+  saveEvent
+} from 'actions/event';
+
+const mapStateToProps = ({
+  plannerApp: {
+    event
+  }
+}, {
   params: { eventId }
 }) => ({
-  eventId
+  eventId,
+  event: event[eventId]
 });
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = dispatch => ({
   syncEvent: (eventId) => {
-    console.log('syncEvent', eventId);
+    dispatch(syncEvent(eventId));
   },
-  save: () => {
-    console.log('save');
+  unsyncEvent: (eventId) => {
+    dispatch(unsyncEvent(eventId));
+  },
+  save: (eventId, eventData) => {
+    dispatch(saveEvent(eventId, eventData));
   }
 });
 

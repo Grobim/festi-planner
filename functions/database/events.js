@@ -2,6 +2,11 @@ const functions = require('firebase-functions');
 
 exports.lowercaseName = functions.database.ref('fcknye-planner/events/{pushId}/name')
   .onWrite((event) => {
+    if (!event.data.exists()) {
+      console.log('Not lowercasing', event.params.pushId);
+      return null;
+    }
+
     const original = event.data.val();
     console.log('Lowercasing', event.params.pushId, original);
     const lowercase = original.toLowerCase();
