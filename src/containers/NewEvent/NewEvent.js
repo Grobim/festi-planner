@@ -9,7 +9,7 @@ const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  save: (eventData) => {
+  save: (eventId, eventData) => {
     dispatch(createEvent(eventData));
   }
 });
