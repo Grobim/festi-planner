@@ -11,9 +11,10 @@ import SnackbarSlide from './Transitions/SnackbarSlide';
 
 const Fab = ({
   content,
-  in: inProp,
+  snackbarOpened,
   classes,
   theme,
+  dispatch,
   ...props
 }) => {
   const transitionDuration = {
@@ -22,7 +23,7 @@ const Fab = ({
   };
 
   return (
-    <SnackbarSlide in={inProp}>
+    <SnackbarSlide in={snackbarOpened}>
       <Zoom
         appear
         in
@@ -41,7 +42,8 @@ const Fab = ({
 };
 
 Fab.propTypes = {
-  in: PropTypes.bool.isRequired,
+  snackbarOpened: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
   content: PropTypes.element.isRequired,
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
   theme: PropTypes.objectOf(PropTypes.any).isRequired

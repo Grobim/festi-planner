@@ -20,7 +20,7 @@ const styles = theme => ({
 
 class Event extends Component {
   static propTypes = {
-    eventId: PropTypes.string.isRequired,
+    eventId: PropTypes.string,
     event: PropTypes.objectOf(PropTypes.any),
     syncEvent: PropTypes.func,
     unsyncEvent: PropTypes.func,
@@ -29,6 +29,7 @@ class Event extends Component {
   };
 
   static defaultProps = {
+    eventId: null,
     event: {},
     syncEvent: noop,
     unsyncEvent: noop
@@ -120,7 +121,6 @@ class Event extends Component {
 
   render() {
     const {
-      eventId,
       classes
     } = this.props;
 
@@ -131,7 +131,6 @@ class Event extends Component {
     return (
       <Fragment>
         <div className={classes.layout}>
-          <div>Coucou {eventId}</div>
           <form name="event" onSubmit={this.handleEventSubmit}>
             <TextField
               id="name"

@@ -11,7 +11,7 @@ const mapStateToProps = ({
     }
   }
 }) => ({
-  in: snackbars.reload || snackbars.default.opened
+  snackbarOpened: Boolean(snackbars.reload || snackbars.default.opened)
 });
 
 export default connect(mapStateToProps)(Fab);

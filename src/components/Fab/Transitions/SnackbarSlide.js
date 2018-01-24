@@ -19,14 +19,23 @@ const SnackbarSlide = ({
   theme,
   children
 }) => {
-  const defaultStyle = {
-    transition: `margin-bottom ${theme.transitions.duration.enteringScreen}ms cubic-bezier(0, 0, 0.2, 1)`,
-    marginBottom: 0
-  };
-
   const transitionStyles = {
-    entering: { marginBottom: 0 },
-    entered: { marginBottom: 48 }
+    entering: {
+      marginBottom: 0,
+      transition: `margin-bottom ${theme.transitions.duration.enteringScreen}ms ${theme.transitions.easing.easeOut}`
+    },
+    entered: {
+      marginBottom: 48,
+      transition: `margin-bottom ${theme.transitions.duration.enteringScreen}ms ${theme.transitions.easing.easeOut}`
+    },
+    exiting: {
+      marginBottom: 48,
+      transition: `margin-bottom ${theme.transitions.duration.enteringScreen}ms ${theme.transitions.easing.sharp}`
+    },
+    exited: {
+      marginBottom: 0,
+      transition: `margin-bottom ${theme.transitions.duration.enteringScreen}ms ${theme.transitions.easing.sharp}`
+    }
   };
 
   return (
@@ -37,10 +46,7 @@ const SnackbarSlide = ({
       {state => (
         <div
           className={classes.fab}
-          style={{
-            ...defaultStyle,
-            ...transitionStyles[state]
-          }}
+          style={transitionStyles[state]}
         >
           {children}
         </div>

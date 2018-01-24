@@ -21,21 +21,25 @@ export const authenticatedComponent = (Component, requireConnected = true) => {
     checkAuth = (isConnected) => {
       if (isConnected !== requireConnected) {
         const {
-          pathname,
-          search,
-          query,
-          state
-        } = this.props.location;
+          goToLogin,
+          goToHome,
+          location: {
+            pathname,
+            search,
+            query,
+            state
+          }
+        } = this.props;
 
         if (!isConnected) {
-          this.props.goToLogin({
+          goToLogin({
             pathname,
             search,
             query,
             state
           });
         } else {
-          this.props.goToHome();
+          goToHome();
         }
       }
     };

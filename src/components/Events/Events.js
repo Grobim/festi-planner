@@ -7,7 +7,7 @@ import { CircularProgress } from 'material-ui/Progress';
 
 import AddIcon from 'material-ui-icons/Add';
 
-import Fab from 'components/Fab';
+import Fab from 'containers/Fab';
 
 import EventsList from './EventsList';
 

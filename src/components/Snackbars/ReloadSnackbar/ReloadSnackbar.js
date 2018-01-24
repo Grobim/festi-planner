@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
 
-import MaterialSnackbar from 'material-ui/Snackbar';
+import Snackbar from 'material-ui/Snackbar';
 import Button from 'material-ui/Button';
 
 const styles = theme => ({
@@ -17,7 +17,7 @@ const ReloadSnackbar = ({
   classes,
   ...props
 }) => (
-  <MaterialSnackbar
+  <Snackbar
     SnackbarContentProps={{
       'aria-describedby': 'reload-snackbar-message-id',
     }}
@@ -28,7 +28,7 @@ const ReloadSnackbar = ({
     action={
       <Button
         key="undo"
-        color="secondary"
+        color="inherit"
         dense
         // eslint-disable-next-line no-restricted-globals
         onClick={() => { location.reload(); }}
@@ -42,7 +42,6 @@ const ReloadSnackbar = ({
 
 ReloadSnackbar.propTypes = {
   open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
   autoHideDuration: PropTypes.number
 };

@@ -1,25 +1,31 @@
 const functions = require('firebase-functions');
+const Promise = require('promise');
 
-exports.lowercaseName = functions.database.ref('fcknye-planner/events/{pushId}/name')
+exports.lowercaseName = functions.database.ref('fcknye-planner/events/{eventId}/name')
   .onWrite((event) => {
     if (!event.data.exists()) {
-      console.log('Not lowercasing', event.params.pushId);
+      console.log('Not lowercasing', event.params.eventId);
       return null;
     }
 
     const original = event.data.val();
-    console.log('Lowercasing', event.params.pushId, original);
+    console.log('Lowercasing', event.params.eventId, original);
     const lowercase = original.toLowerCase();
 
     return event.data.adminRef.parent.child('lowercaseName').set(lowercase);
   });
 
-exports.onCreate = functions.database.ref('fcknye-planner/events/{pushId}')
+exports.onCreate = functions.database.ref('fcknye-planner/events/{eventId}')
   .onCreate((event) => {
     const newEvent = event.data.val();
-    console.log('Creating', event.params.pushId, newEvent);
+    console.log('Creating', event.params.eventId, newEvent);
 
-    return event.data.adminRef.child('admins').set({
-      [newEvent.createdBy]: true
-    });
+    return Promise.all([
+      event.data.adminRef.child('members').set({
+        [newEvent.createdBy]: true
+      }),
+      event.data.adminRef.child('admins').set({
+        [newEvent.createdBy]: true
+      })
+    ]);
   });

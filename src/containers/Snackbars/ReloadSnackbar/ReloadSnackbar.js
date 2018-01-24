@@ -2,8 +2,6 @@ import { connect } from 'react-redux';
 
 import ReloadSnackbar from 'components/Snackbars/ReloadSnackbar';
 
-import { closeMessage } from 'actions/ui/global';
-
 const mapStateToProps = ({
   plannerApp: {
     ui: {
@@ -18,10 +16,4 @@ const mapStateToProps = ({
   open: reload
 });
 
-const mapDispatchToProps = dispatch => ({
-  onClose: () => {
-    dispatch(closeMessage());
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReloadSnackbar);
+export default connect(mapStateToProps)(ReloadSnackbar);
