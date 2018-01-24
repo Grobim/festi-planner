@@ -14,7 +14,6 @@ import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase';
 
 import 'typeface-roboto';
 
-import './index.css';
 import plannerApp from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 import Routes from './Routes';
