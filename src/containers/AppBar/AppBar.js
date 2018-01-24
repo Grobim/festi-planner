@@ -3,7 +3,7 @@ import { push } from 'react-router-redux';
 
 import AppBar from 'components/AppBar';
 
-import { toggleDrawer } from 'actions/ui/global';
+import { toggleDrawer, showLogin } from 'actions/ui/global';
 import { USER_STATE_CONNECTED } from 'reducers/user';
 import { disconnect } from 'actions/user';
 
@@ -18,6 +18,9 @@ const mapStateToProps = ({
 const mapDispatchToPros = dispatch => ({
   onMenuClick: () => {
     dispatch(toggleDrawer());
+  },
+  login: () => {
+    dispatch(showLogin());
   },
   goToProfile: (uid) => {
     dispatch(push(`/profile/${uid}`));

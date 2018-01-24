@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
+import { push } from 'react-router-redux';
 
 import { USER_STATE_CONNECTED } from 'reducers/user';
 
@@ -21,23 +21,11 @@ export const authenticatedComponent = (Component, requireConnected = true) => {
     checkAuth = (isConnected) => {
       if (isConnected !== requireConnected) {
         const {
-          goToLogin,
-          goToHome,
-          location: {
-            pathname,
-            search,
-            query,
-            state
-          }
+          goToHome
         } = this.props;
 
         if (!isConnected) {
-          goToLogin({
-            pathname,
-            search,
-            query,
-            state
-          });
+          // TODO toast se connecter
         } else {
           goToHome();
         }
@@ -58,7 +46,6 @@ export const authenticatedComponent = (Component, requireConnected = true) => {
 
   AuthenticatedComponent.propTypes = {
     isConnected: PropTypes.bool.isRequired,
-    goToLogin: PropTypes.func.isRequired,
     goToHome: PropTypes.func.isRequired,
     location: PropTypes.objectOf(PropTypes.any).isRequired
   };
@@ -68,16 +55,8 @@ export const authenticatedComponent = (Component, requireConnected = true) => {
   });
 
   const mapDispatchToProps = dispatch => ({
-    goToLogin: (from) => {
-      dispatch(replace({
-        pathname: '/login',
-        state: {
-          from
-        }
-      }));
-    },
     goToHome: () => {
-      dispatch(replace('/'));
+      dispatch(push('/'));
     }
   });
 

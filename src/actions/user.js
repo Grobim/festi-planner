@@ -1,11 +1,13 @@
 import firebase from 'firebase';
+
 import {
   USER_CONNECT_REQUEST,
   USER_CONNECT_SUCCESS,
   USER_CONNECT_ERROR,
   USER_DISCONNECT_SUCCESS
 } from 'reducers/user';
-import { push, replace } from 'react-router-redux';
+
+import { closeLogin } from 'actions/ui/global';
 
 const connectRequest = () => ({
   type: USER_CONNECT_REQUEST
@@ -24,7 +26,7 @@ const disconnectSuccess = () => ({
   type: USER_DISCONNECT_SUCCESS
 });
 
-export const listenToAuth = getLocation => (dispatch, getState) => {
+export const listenToAuth = () => (dispatch, getState) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       const {
@@ -38,7 +40,6 @@ export const listenToAuth = getLocation => (dispatch, getState) => {
 
       userRef.on('value', (snap) => {
         const userProfile = snap.val();
-        const currentLocation = getLocation();
 
         if (!userProfile) {
           userRef.set({
@@ -47,22 +48,16 @@ export const listenToAuth = getLocation => (dispatch, getState) => {
             email
           });
 
-          dispatch(push(`/profile/${uid}`));
+          // TODO Toast profile
         } else {
           dispatch(connectSuccess({
             displayName: userProfile.displayName,
             photoURL: userProfile.photoURL,
             uid
           }));
-
-          if (currentLocation.pathname === '/login') {
-            if (currentLocation.state && currentLocation.state.from) {
-              dispatch(replace(currentLocation.state.from));
-            } else {
-              dispatch(push('/'));
-            }
-          }
         }
+
+        dispatch(closeLogin());
       });
     } else {
       const { uid } = getState().plannerApp.user;

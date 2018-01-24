@@ -11,12 +11,6 @@ import App from './App';
 
 const asyncLoadTimeout = 3000;
 
-const AsyncLogin = Loadable({
-  loader: () => import('containers/Login'),
-  loading: Loader,
-  timeout: asyncLoadTimeout
-});
-
 const AsyncProfile = Loadable({
   loader: () => import('containers/Profile'),
   loading: Loader,
@@ -45,7 +39,6 @@ const Routes = ({ history }) => (
   <Router history={history}>
     <Route path="/" exact component={App}>
       <IndexRoute component={Home} />
-      <Route path="login" exact component={AsyncLogin} />
       <Route path="events" exact component={AsyncEvents} />
       <Route path="event/new" exact component={AsyncNewEvent} />
       <Route path="event/:eventId" exact component={AsyncEvent} />

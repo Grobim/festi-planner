@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { withRouter } from 'react-router';
-
 import { withStyles } from 'material-ui/styles';
 
 import MaterialAppBar from 'material-ui/AppBar';
@@ -31,6 +29,22 @@ const styles = {
 };
 
 class AppBar extends Component {
+  static propTypes = {
+    isConnected: PropTypes.bool.isRequired,
+    onMenuClick: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+    goToProfile: PropTypes.func.isRequired,
+    disconnect: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.any).isRequired,
+    photoURL: PropTypes.string,
+    uid: PropTypes.string
+  };
+
+  static defaultProps = {
+    photoURL: undefined,
+    uid: undefined
+  };
+
   state = {
     menuIsOpen: false,
     anchorEl: null
@@ -69,14 +83,9 @@ class AppBar extends Component {
     const {
       isConnected,
       onMenuClick,
+      login,
       photoURL,
-      classes,
-      location: {
-        pathname,
-        search,
-        query,
-        state
-      }
+      classes
     } = this.props;
 
     return (
@@ -138,22 +147,7 @@ class AppBar extends Component {
               </Menu>
             </Fragment>
           ) : (
-            <Link
-              href="/login"
-              to={{
-                pathname: '/login',
-                state: {
-                  from: {
-                    pathname,
-                    search,
-                    query,
-                    state
-                  }
-                }
-              }}
-            >
-              <Button color="inherit">Login</Button>
-            </Link>
+            <Button color="inherit" onClick={login}>Login</Button>
           )}
         </Toolbar>
       </MaterialAppBar>
@@ -161,20 +155,4 @@ class AppBar extends Component {
   }
 }
 
-AppBar.propTypes = {
-  isConnected: PropTypes.bool.isRequired,
-  onMenuClick: PropTypes.func.isRequired,
-  goToProfile: PropTypes.func.isRequired,
-  disconnect: PropTypes.func.isRequired,
-  location: PropTypes.objectOf(PropTypes.any).isRequired,
-  classes: PropTypes.objectOf(PropTypes.any).isRequired,
-  photoURL: PropTypes.string,
-  uid: PropTypes.string
-};
-
-AppBar.defaultProps = {
-  photoURL: undefined,
-  uid: undefined
-};
-
-export default withStyles(styles)(withRouter(AppBar));
+export default withStyles(styles)(AppBar);
