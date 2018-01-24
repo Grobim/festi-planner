@@ -4,6 +4,8 @@ export const UI_CLOSE_MESSAGE = 'UI_CLOSE_MESSAGE';
 export const UI_SHOW_RELOAD_MESSAGE = 'UI_SHOW_RELOAD_MESSAGE';
 export const UI_SHOW_LOGIN = 'UI_SHOW_LOGIN';
 export const UI_CLOSE_LOGIN = 'UI_CLOSE_LOGIN';
+export const UI_SHOW_LOGIN_MESSAGE = 'UI_SHOW_LOGIN_MESSAGE';
+export const UI_CLOSE_LOGIN_MESSAGE = 'UI_CLOSE_LOGIN_MESSAGE';
 
 const defaultState = {
   drawerOpened: false,
@@ -15,7 +17,10 @@ const defaultState = {
       opened: false,
       message: ''
     },
-    reload: false
+    reload: false,
+    login: {
+      opened: false
+    }
   }
 };
 
@@ -75,6 +80,30 @@ const global = (state = defaultState, action = {}) => {
         modals: {
           ...state.modals,
           login: false
+        }
+      };
+    }
+    case UI_SHOW_LOGIN_MESSAGE: {
+      return {
+        ...state,
+        snackbars: {
+          ...state.snackbars,
+          login: {
+            opened: true,
+            type: payload
+          }
+        }
+      };
+    }
+    case UI_CLOSE_LOGIN_MESSAGE: {
+      return {
+        ...state,
+        snackbars: {
+          ...state.snackbars,
+          login: {
+            ...state.snackbars.login,
+            opened: false
+          }
         }
       };
     }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
 
-import MaterialSnackbar from 'material-ui/Snackbar';
+import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 
@@ -18,7 +18,6 @@ const DefaultSnackbar = ({
   classes,
   actions,
   message,
-  autoHideDuration,
   ...props
 }) => {
   const {
@@ -40,14 +39,13 @@ const DefaultSnackbar = ({
     );
 
   return (
-    <MaterialSnackbar
+    <Snackbar
       SnackbarContentProps={{
         'aria-describedby': 'snackbar-message-id',
       }}
       message={
         <span id="snackbar-message-id">{message}</span>
       }
-      autoHideDuration={autoHideDuration}
       action={actionArray}
       {...props}
     />

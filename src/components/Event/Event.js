@@ -20,11 +20,13 @@ const styles = theme => ({
 
 class Event extends Component {
   static propTypes = {
+    isConnected: PropTypes.bool.isRequired,
     eventId: PropTypes.string,
     event: PropTypes.objectOf(PropTypes.any),
     syncEvent: PropTypes.func,
     unsyncEvent: PropTypes.func,
     save: PropTypes.func.isRequired,
+    showLogin: PropTypes.func.isRequired,
     classes: PropTypes.objectOf(PropTypes.any).isRequired
   };
 
@@ -103,12 +105,18 @@ class Event extends Component {
 
     const {
       save,
-      eventId
+      showLogin,
+      eventId,
+      isConnected
     } = this.props;
 
-    save(eventId, {
-      name
-    });
+    if (isConnected) {
+      save(eventId, {
+        name
+      });
+    } else {
+      showLogin();
+    }
   };
 
   handleFieldChange = field => (event) => {

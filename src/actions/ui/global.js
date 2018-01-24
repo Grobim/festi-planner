@@ -4,7 +4,9 @@ import {
   UI_CLOSE_MESSAGE,
   UI_SHOW_RELOAD_MESSAGE,
   UI_SHOW_LOGIN,
-  UI_CLOSE_LOGIN
+  UI_CLOSE_LOGIN,
+  UI_SHOW_LOGIN_MESSAGE,
+  UI_CLOSE_LOGIN_MESSAGE
 } from 'reducers/ui/global';
 
 export const toggleDrawer = () => ({
@@ -32,11 +34,22 @@ export const closeLogin = () => ({
   type: UI_CLOSE_LOGIN
 });
 
+export const showActionLoginMessage = () => ({
+  type: UI_SHOW_LOGIN_MESSAGE,
+  payload: 'action'
+});
+
+export const closeLoginMessage = () => ({
+  type: UI_CLOSE_LOGIN_MESSAGE
+});
+
 export default {
   toggleDrawer,
   showMessage,
   closeMessage,
   showReloadMessage,
   showLogin,
-  closeLogin
+  closeLogin,
+  showActionLoginMessage,
+  closeLoginMessage
 };
