@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
 
+import withWidth, { isWidthDown } from 'material-ui/utils/withWidth';
+
 import Fab from 'components/Fab';
 
 const mapStateToProps = ({
@@ -10,10 +12,12 @@ const mapStateToProps = ({
       }
     }
   }
+}, {
+  width
 }) => ({
-  snackbarOpened: Boolean(snackbars.reload ||
+  snackbarOpened: Boolean((snackbars.reload ||
     snackbars.default.opened ||
-    snackbars.login.opened)
+    snackbars.login.opened) && isWidthDown('sm', width))
 });
 
-export default connect(mapStateToProps)(Fab);
+export default withWidth()(connect(mapStateToProps)(Fab));
