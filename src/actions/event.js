@@ -69,6 +69,7 @@ export const createEvent = eventData => (dispatch, getState) => {
     .then((ref) => {
       dispatch(createEventSuccess(ref.key));
       dispatch(push(`/event/${ref.key}`));
+      dispatch(showMessage('Event successfully created'));
     });
 };
 
@@ -100,7 +101,7 @@ export const saveEvent = (eventId, eventData) => (dispatch) => {
     .update(eventData)
     .then(() => {
       dispatch(saveEventSuccess(eventId, eventData));
-      dispatch(showMessage('Save success'));
+      dispatch(showMessage('Event successfully saved'));
     });
 };
 

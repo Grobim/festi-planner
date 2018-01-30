@@ -15,7 +15,7 @@ const mapStateToProps = ({
 }, {
   width
 }) => ({
-  snackbarOpened: Boolean((snackbars.reload ||
+  shouldSlideUp: Boolean((snackbars.reload ||
     snackbars.default.opened ||
     snackbars.login.opened) && isWidthDown('sm', width))
 });

@@ -11,7 +11,7 @@ import SnackbarSlide from './Transitions/SnackbarSlide';
 
 const Fab = ({
   content,
-  snackbarOpened,
+  shouldSlideUp,
   classes,
   theme,
   dispatch,
@@ -23,7 +23,7 @@ const Fab = ({
   };
 
   return (
-    <SnackbarSlide in={snackbarOpened}>
+    <SnackbarSlide in={shouldSlideUp}>
       <Zoom
         appear
         in
@@ -42,7 +42,7 @@ const Fab = ({
 };
 
 Fab.propTypes = {
-  snackbarOpened: PropTypes.bool.isRequired,
+  shouldSlideUp: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   content: PropTypes.element.isRequired,
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
