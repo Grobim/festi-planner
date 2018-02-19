@@ -36,7 +36,7 @@ export const listenToAuth = () => (dispatch, getState) => {
         email
       } = user;
 
-      const userRef = firebase.database().ref(`fcknye-planner/users/${uid}`);
+      const userRef = firebase.database().ref(`users/${uid}`);
 
       userRef.on('value', (snap) => {
         const userProfile = snap.val();
@@ -63,8 +63,8 @@ export const listenToAuth = () => (dispatch, getState) => {
       const { uid } = getState().plannerApp.user;
 
       if (uid) {
-        firebase.database().ref(`fcknye-planner/presence/${uid}`).remove();
-        firebase.database().ref(`fcknye-planner/users/${uid}`).off('value');
+        firebase.database().ref(`presence/${uid}`).remove();
+        firebase.database().ref(`users/${uid}`).off('value');
 
         dispatch(disconnectSuccess());
       }

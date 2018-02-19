@@ -61,7 +61,7 @@ export const createEvent = eventData => (dispatch, getState) => {
     uid
   } = getState().plannerApp.user;
 
-  firebase.database().ref('fcknye-planner/events')
+  firebase.database().ref('events')
     .push({
       ...eventData,
       createdBy: uid
@@ -77,7 +77,7 @@ export const syncEvent = eventId => (dispatch) => {
   dispatch(syncEventRequest(eventId));
 
   firebase.database()
-    .ref(`fcknye-planner/events/${eventId}`)
+    .ref(`events/${eventId}`)
     .on('value', (snap) => {
       if (snap.exists()) {
         dispatch(syncEventSuccess(snap.key, snap.val()));
@@ -87,7 +87,7 @@ export const syncEvent = eventId => (dispatch) => {
 
 export const unsyncEvent = eventId => (dispatch) => {
   firebase.database()
-    .ref(`fcknye-planner/events/${eventId}`)
+    .ref(`events/${eventId}`)
     .off('value');
 
   dispatch(unsyncEventSuccess(eventId));
@@ -97,7 +97,7 @@ export const saveEvent = (eventId, eventData) => (dispatch) => {
   dispatch(saveEventRequest(eventId));
 
   firebase.database()
-    .ref(`fcknye-planner/events/${eventId}`)
+    .ref(`events/${eventId}`)
     .update(eventData)
     .then(() => {
       dispatch(saveEventSuccess(eventId, eventData));

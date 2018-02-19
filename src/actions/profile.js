@@ -32,7 +32,7 @@ export const syncProfile = uid => (dispatch) => {
   dispatch(syncProfileRequest(uid));
 
   const profileRef = firebase.database()
-    .ref(`fcknye-planner/users/${uid}`);
+    .ref(`users/${uid}`);
 
   profileRef.on('value', (snap) => {
     dispatch(syncProfileSuccess(snap.key, snap.val()));
@@ -41,7 +41,7 @@ export const syncProfile = uid => (dispatch) => {
 
 export const unsyncProfile = uid => (dispatch) => {
   firebase.database()
-    .ref(`fcknye-planner/users/${uid}`)
+    .ref(`users/${uid}`)
     .off('value');
 
   dispatch(unsyncedProfile(uid));
@@ -49,18 +49,18 @@ export const unsyncProfile = uid => (dispatch) => {
 
 export const editName = (uid, displayName) => () => {
   firebase.database()
-    .ref(`fcknye-planner/users/${uid}/displayName`)
+    .ref(`users/${uid}/displayName`)
     .set(displayName);
 };
 
 export const editAvatar = (uid, avatarFile) => () => {
   firebase.storage()
-    .ref(`/fcknye-planner/avatars/${uid}`)
+    .ref(`/avatars/${uid}`)
     .put(avatarFile)
     .then(snap => snap.downloadURL)
     .then((downloadURL) => {
       firebase.database()
-        .ref(`fcknye-planner/users/${uid}/photoURL`)
+        .ref(`users/${uid}/photoURL`)
         .set(downloadURL);
     });
 };

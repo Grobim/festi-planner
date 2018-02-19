@@ -2,23 +2,21 @@
   "rules": {
     ".read": false,
     ".write": false,
-    "fcknye-planner": {
-      "presence": {
-        ".read": true,
-        ".write": true
-      },
-      "users": {
-        ".read": true,
-        "$uid": {
-          ".write": "$uid === auth.uid"
-        }
-      },
-      "events": {
-        ".read": true,
-        ".indexOn": ["lowercaseName"],
-        "$eventId": {
-          ".write": "auth !== null && (data.exists() ? (data.child('admins').child(auth.uid).val() === true) : (newData.child('createdBy').val() === auth.uid))"
-        }
+    "presence": {
+      ".read": true,
+      ".write": true
+    },
+    "users": {
+      ".read": true,
+      "$uid": {
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "events": {
+      ".read": true,
+      ".indexOn": ["lowercaseName"],
+      "$eventId": {
+        ".write": "auth !== null && (data.exists() ? (data.child('admins').child(auth.uid).val() === true) : (newData.child('createdBy').val() === auth.uid))"
       }
     }
   }

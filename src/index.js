@@ -19,17 +19,17 @@ import registerServiceWorker from './registerServiceWorker';
 import Routes from './Routes';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCE2Ko9lTeyotNpf-mZ4cH7WCoTP7faVYc',
-  authDomain: 'boiling-fire-3060.firebaseapp.com',
-  databaseURL: 'https://boiling-fire-3060.firebaseio.com',
-  projectId: 'firebase-boiling-fire-3060',
-  storageBucket: 'firebase-boiling-fire-3060.appspot.com',
-  messagingSenderId: '372841444977'
+  apiKey: 'AIzaSyCyGCuXJjGL9rLbFZ2ZUXNOyLgigXcIlIM',
+  authDomain: 'festi-planner.firebaseapp.com',
+  databaseURL: 'https://festi-planner.firebaseio.com',
+  projectId: 'festi-planner',
+  storageBucket: 'festi-planner.appspot.com',
+  messagingSenderId: '1074529865036'
 };
 
 const reduxFirebaseConfig = {
   userProfile: 'users', // where profiles are stored in database
-  presence: 'fcknye-planner/presence', // where list of online users is stored in database
+  presence: 'presence', // where list of online users is stored in database
   sessions: false
 };
 
