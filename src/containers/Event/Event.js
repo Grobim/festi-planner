@@ -24,7 +24,7 @@ const mapStateToProps = ({
 }) => ({
   isConnected: state === USER_STATE_CONNECTED,
   eventId,
-  event: event[eventId]
+  event: (event[eventId] || {}).public
 });
 
 const mapDispatchToProps = dispatch => ({

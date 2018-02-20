@@ -23,7 +23,7 @@ export const fetchEvents = () => (dispatch, getState) => {
   const { query } = getState().plannerApp.events;
 
   firebase.database()
-    .ref('events')
+    .ref('events/publicData')
     .orderByChild(query.sort)
     .limitToFirst(query.pageSize)
     .once('value')

@@ -2,12 +2,14 @@ import firebase from 'firebase';
 
 import { push } from 'react-router-redux';
 
+import { all } from 'promise';
+
 import {
   EVENT_CREATE_REQUESTED,
   EVENT_CREATE_SUCCESS,
-  EVENT_SYNC_REQUESTED,
-  EVENT_SYNC_SUCCESS,
-  EVENT_UNSYNC_SUCCESS,
+  EVENT_PUBLIC_SYNC_REQUESTED,
+  EVENT_PUBLIC_SYNC_SUCCESS,
+  EVENT_PUBLIC_UNSYNC_SUCCESS,
   EVENT_SAVE_REQUESTED,
   EVENT_SAVE_SUCCESS
 } from 'reducers/event';
@@ -23,21 +25,21 @@ const createEventSuccess = eventId => ({
   payload: eventId
 });
 
-const syncEventRequest = eventId => ({
-  type: EVENT_SYNC_REQUESTED,
+const syncPublicEventRequest = eventId => ({
+  type: EVENT_PUBLIC_SYNC_REQUESTED,
   payload: eventId
 });
 
-const syncEventSuccess = (eventId, eventData) => ({
-  type: EVENT_SYNC_SUCCESS,
+const syncPublicEventSuccess = (eventId, eventData) => ({
+  type: EVENT_PUBLIC_SYNC_SUCCESS,
   payload: {
     ...eventData,
     eventId
   }
 });
 
-const unsyncEventSuccess = eventId => ({
-  type: EVENT_UNSYNC_SUCCESS,
+const unsyncPublicEventSuccess = eventId => ({
+  type: EVENT_PUBLIC_UNSYNC_SUCCESS,
   payload: eventId
 });
 
@@ -61,7 +63,7 @@ export const createEvent = eventData => (dispatch, getState) => {
     uid
   } = getState().plannerApp.user;
 
-  firebase.database().ref('events')
+  firebase.database().ref('events/publicData')
     .push({
       ...eventData,
       createdBy: uid
@@ -74,35 +76,42 @@ export const createEvent = eventData => (dispatch, getState) => {
 };
 
 export const syncEvent = eventId => (dispatch) => {
-  dispatch(syncEventRequest(eventId));
+  dispatch(syncPublicEventRequest(eventId));
 
   firebase.database()
-    .ref(`events/${eventId}`)
+    .ref(`events/publicData/${eventId}`)
     .on('value', (snap) => {
       if (snap.exists()) {
-        dispatch(syncEventSuccess(snap.key, snap.val()));
+        dispatch(syncPublicEventSuccess(snap.key, snap.val()));
       }
     });
 };
 
 export const unsyncEvent = eventId => (dispatch) => {
   firebase.database()
-    .ref(`events/${eventId}`)
+    .ref(`events/publicData/${eventId}`)
     .off('value');
 
-  dispatch(unsyncEventSuccess(eventId));
+  dispatch(unsyncPublicEventSuccess(eventId));
 };
 
 export const saveEvent = (eventId, eventData) => (dispatch) => {
   dispatch(saveEventRequest(eventId));
 
-  firebase.database()
-    .ref(`events/${eventId}`)
-    .update(eventData)
+  const publicPromise = firebase.database()
+    .ref(`events/publicData/${eventId}`)
+    .update(eventData);
+
+  publicPromise
     .then(() => {
       dispatch(saveEventSuccess(eventId, eventData));
-      dispatch(showMessage('Event successfully saved'));
     });
+
+  all([
+    publicPromise
+  ]).then(() => {
+    dispatch(showMessage('Event successfully saved'));
+  });
 };
 
 export default {

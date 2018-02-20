@@ -1,6 +1,6 @@
-export const EVENT_SYNC_REQUESTED = 'EVENT_SYNC_REQUESTED';
-export const EVENT_SYNC_SUCCESS = 'EVENT_SYNC_SUCCESS';
-export const EVENT_UNSYNC_SUCCESS = 'EVENT_UNSYNC_SUCCESS';
+export const EVENT_PUBLIC_SYNC_REQUESTED = 'EVENT_PUBLIC_SYNC_REQUESTED';
+export const EVENT_PUBLIC_SYNC_SUCCESS = 'EVENT_PUBLIC_SYNC_SUCCESS';
+export const EVENT_PUBLIC_UNSYNC_SUCCESS = 'EVENT_PUBLIC_UNSYNC_SUCCESS';
 export const EVENT_CREATE_REQUESTED = 'EVENT_CREATE_REQUESTED';
 export const EVENT_CREATE_SUCCESS = 'EVENT_CREATE_SUCCESS';
 export const EVENT_SAVE_REQUESTED = 'EVENT_SAVE_REQUESTED';
@@ -22,16 +22,19 @@ const defaultState = {
 
 const event = (state = defaultState, action) => {
   switch (action.type) {
-    case EVENT_SYNC_REQUESTED: {
+    case EVENT_PUBLIC_SYNC_REQUESTED: {
       return {
         ...state,
         [action.payload]: {
           ...state[action.payload],
-          state: EVENT_STATE_SYNCING
+          public: {
+            ...(state[action.payload] || {}).public,
+            state: EVENT_STATE_SYNCING
+          }
         }
       };
     }
-    case EVENT_SYNC_SUCCESS: {
+    case EVENT_PUBLIC_SYNC_SUCCESS: {
       const {
         eventId,
         ...eventData
@@ -41,17 +44,23 @@ const event = (state = defaultState, action) => {
         ...state,
         [eventId]: {
           ...state[eventId],
-          state: EVENT_STATE_SYNCED,
-          data: eventData
+          public: {
+            ...(state[eventId] || {}).public,
+            state: EVENT_STATE_SYNCED,
+            data: eventData
+          }
         }
       };
     }
-    case EVENT_UNSYNC_SUCCESS: {
+    case EVENT_PUBLIC_UNSYNC_SUCCESS: {
       return {
         ...state,
         [action.payload]: {
           ...state[action.payload],
-          state: EVENT_STATE_UNSYNCED
+          public: {
+            ...(state[action.payload] || {}).public,
+            state: EVENT_STATE_UNSYNCED
+          }
         }
       };
     }
