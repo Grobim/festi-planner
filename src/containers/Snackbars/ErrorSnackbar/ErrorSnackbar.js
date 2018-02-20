@@ -2,19 +2,14 @@ import { connect } from 'react-redux';
 
 import DefaultSnackbar from 'components/Snackbars/DefaultSnackbar';
 
-import { closeMessage } from 'actions/ui/global';
+import { closeError } from 'actions/ui/global';
 
 const mapStateToProps = ({
   plannerApp: {
     ui: {
       global: {
         snackbars: {
-          default: {
-            opened,
-            message,
-            actionColor,
-            color
-          }
+          error: { opened, message }
         }
       }
     }
@@ -22,13 +17,13 @@ const mapStateToProps = ({
 }) => ({
   open: opened,
   message,
-  actionColor,
-  color
+  color: 'secondary',
+  actionColor: 'secondary'
 });
 
 const mapDispatchToProps = dispatch => ({
   onClose: () => {
-    dispatch(closeMessage());
+    dispatch(closeError());
   }
 });
 

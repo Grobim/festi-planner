@@ -1,6 +1,8 @@
 export const UI_TOGGLE_DRAWER = 'UI_TOGGLE_DRAWER';
 export const UI_SHOW_MESSAGE = 'UI_SHOW_MESSAGE';
 export const UI_CLOSE_MESSAGE = 'UI_CLOSE_MESSAGE';
+export const UI_SHOW_ERROR = 'UI_SHOW_ERROR';
+export const UI_CLOSE_ERROR = 'UI_CLOSE_ERROR';
 export const UI_SHOW_RELOAD_MESSAGE = 'UI_SHOW_RELOAD_MESSAGE';
 export const UI_SHOW_LOGIN = 'UI_SHOW_LOGIN';
 export const UI_CLOSE_LOGIN = 'UI_CLOSE_LOGIN';
@@ -14,6 +16,10 @@ const defaultState = {
   },
   snackbars: {
     default: {
+      opened: false,
+      message: ''
+    },
+    error: {
       opened: false,
       message: ''
     },
@@ -36,17 +42,23 @@ const global = (state = defaultState, action = {}) => {
         ...state,
         drawerOpened: !state.drawerOpened
       };
-    case UI_SHOW_MESSAGE:
+    case UI_SHOW_MESSAGE: {
+      const {
+        message,
+        actionColor
+      } = payload;
       return {
         ...state,
         snackbars: {
           ...state.snackbars,
           default: {
             opened: true,
-            message: payload
+            message,
+            actionColor
           }
         }
       };
+    }
     case UI_CLOSE_MESSAGE:
       return {
         ...state,
@@ -54,6 +66,33 @@ const global = (state = defaultState, action = {}) => {
           ...state.snackbars,
           default: {
             ...defaultState.snackbars.default
+          }
+        }
+      };
+    case UI_SHOW_ERROR: {
+      const {
+        message,
+        actionColor
+      } = payload;
+      return {
+        ...state,
+        snackbars: {
+          ...state.snackbars,
+          error: {
+            opened: true,
+            message,
+            actionColor
+          }
+        }
+      };
+    }
+    case UI_CLOSE_ERROR:
+      return {
+        ...state,
+        snackbars: {
+          ...state.snackbars,
+          error: {
+            ...defaultState.snackbars.error
           }
         }
       };

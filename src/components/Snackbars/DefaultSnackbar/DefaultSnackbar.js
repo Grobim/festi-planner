@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
 import Snackbar from 'material-ui/Snackbar';
+import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 
@@ -18,6 +19,8 @@ const DefaultSnackbar = ({
   classes,
   actions,
   message,
+  color,
+  actionColor,
   ...props
 }) => {
   const {
@@ -30,7 +33,7 @@ const DefaultSnackbar = ({
       <IconButton
         key="close"
         aria-label="Close"
-        color="inherit"
+        color={actionColor}
         className={classes.close}
         onClick={onClose}
       >
@@ -44,7 +47,13 @@ const DefaultSnackbar = ({
         'aria-describedby': 'snackbar-message-id',
       }}
       message={
-        <span id="snackbar-message-id">{message}</span>
+        <Typography
+          id="snackbar-message-id"
+          color={color}
+          component="span"
+        >
+          {message}
+        </Typography>
       }
       action={actionArray}
       {...props}
@@ -55,6 +64,8 @@ const DefaultSnackbar = ({
 DefaultSnackbar.propTypes = {
   open: PropTypes.bool.isRequired,
   message: PropTypes.string,
+  color: PropTypes.string,
+  actionColor: PropTypes.string,
   onClose: PropTypes.func.isRequired,
   classes: PropTypes.objectOf(PropTypes.any).isRequired,
   autoHideDuration: PropTypes.number,
@@ -63,6 +74,8 @@ DefaultSnackbar.propTypes = {
 
 DefaultSnackbar.defaultProps = {
   message: '',
+  color: 'inherit',
+  actionColor: 'inherit',
   actions: null,
   autoHideDuration: 4000
 };

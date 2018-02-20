@@ -2,6 +2,8 @@ import {
   UI_TOGGLE_DRAWER,
   UI_SHOW_MESSAGE,
   UI_CLOSE_MESSAGE,
+  UI_SHOW_ERROR,
+  UI_CLOSE_ERROR,
   UI_SHOW_RELOAD_MESSAGE,
   UI_SHOW_LOGIN,
   UI_CLOSE_LOGIN,
@@ -15,11 +17,24 @@ export const toggleDrawer = () => ({
 
 export const showMessage = message => ({
   type: UI_SHOW_MESSAGE,
-  payload: message
+  payload: {
+    message
+  }
 });
 
 export const closeMessage = () => ({
   type: UI_CLOSE_MESSAGE
+});
+
+export const showError = message => ({
+  type: UI_SHOW_ERROR,
+  payload: {
+    message
+  }
+});
+
+export const closeError = () => ({
+  type: UI_CLOSE_ERROR
 });
 
 export const showReloadMessage = () => ({
@@ -47,6 +62,8 @@ export default {
   toggleDrawer,
   showMessage,
   closeMessage,
+  showError,
+  closeError,
   showReloadMessage,
   showLogin,
   closeLogin,

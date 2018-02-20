@@ -7,7 +7,10 @@ import {
   USER_DISCONNECT_SUCCESS
 } from 'reducers/user';
 
-import { closeLogin } from 'actions/ui/global';
+import {
+  closeLogin,
+  showError
+} from 'actions/ui/global';
 
 const connectRequest = () => ({
   type: USER_CONNECT_REQUEST
@@ -112,7 +115,18 @@ export const connect = (providerKey, mail, password) => (dispatch) => {
   if (Provider) {
     firebase.auth().signInWithPopup(new Provider()).then(
       null,
-      () => {
+      (error) => {
+        console.error('Connection failed', error);
+        switch (error.code) {
+          case 'auth/account-exists-with-different-credential': {
+            firebase.auth().fetchProvidersForEmail(error.email).then((providers) => {
+              dispatch(showError(`Un compte existe déjà avec cet email. (Source du compte: ${providers[0]})`));
+            });
+            break;
+          }
+          default:
+            break;
+        }
         dispatch(connectError());
       }
     );
