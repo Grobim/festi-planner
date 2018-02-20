@@ -51,7 +51,7 @@ const LoginSnackbar = ({
         <Button
           key="undo"
           color="inherit"
-          dense
+          size="small"
           onClick={handleClose}
         >
           Login

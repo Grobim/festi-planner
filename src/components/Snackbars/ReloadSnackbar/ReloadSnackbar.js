@@ -29,7 +29,7 @@ const ReloadSnackbar = ({
       <Button
         key="undo"
         color="inherit"
-        dense
+        size="small"
         // eslint-disable-next-line no-restricted-globals
         onClick={() => { location.reload(); }}
       >

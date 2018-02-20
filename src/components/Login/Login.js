@@ -90,19 +90,19 @@ class Login extends Component {
     return (
       <Grid container spacing={0}>
         <Grid item xs={12} sm={6}>
-          <Button className={classes.button} raised onClick={connectWithFacebook}>
+          <Button className={classes.button} variant="raised" onClick={connectWithFacebook}>
             Sign in with Facebook
             <FacebookIcon className={classes.icon} />
           </Button>
-          <Button className={classes.button} raised onClick={connectWithGoogle}>
+          <Button className={classes.button} variant="raised" onClick={connectWithGoogle}>
             Sign in with Google
             <GoogleIcon className={classes.icon} />
           </Button>
-          <Button className={classes.button} raised onClick={connectWithTwitter}>
+          <Button className={classes.button} variant="raised" onClick={connectWithTwitter}>
             Sign in with Twitter
             <TwitterIcon className={classes.icon} />
           </Button>
-          <Button className={classes.button} raised onClick={connectWithGithub}>
+          <Button className={classes.button} variant="raised" onClick={connectWithGithub}>
             Sign in with Github
             <GithubIcon className={classes.icon} />
           </Button>
@@ -110,10 +110,10 @@ class Login extends Component {
         <Grid item xs={12} sm={6}>
           <Card className={classes.panel}>
             <CardContent>
-              <Typography type="headline">With email</Typography>
+              <Typography variant="headline">With email</Typography>
               <Typography
                 className={classes.panelSubheading}
-                type="subheading"
+                variant="subheading"
               >
                 Even if that&apos;s lame...
               </Typography>
@@ -139,7 +139,7 @@ class Login extends Component {
             </CardContent>
             <CardActions>
               <div style={{ flexGrow: 1 }} />
-              <Button dense color="primary" onClick={this.onLoginEmailSubmit}>
+              <Button size="small" color="primary" onClick={this.onLoginEmailSubmit}>
                 Sign in
               </Button>
             </CardActions>

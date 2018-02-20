@@ -31,7 +31,7 @@ const Fab = ({
         unmountOnExit
       >
         <Button
-          fab
+          variant="fab"
           {...props}
         >
           {content}

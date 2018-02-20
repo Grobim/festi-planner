@@ -30,12 +30,12 @@ const Loader = ({
       <Fragment>
         <CircularProgress size={70} />
         {timedOut && (
-          <Typography className={classes.waiting} type="title">It&apos;s taking long... still loading...</Typography>
+          <Typography className={classes.waiting} variant="title">It&apos;s taking long... still loading...</Typography>
         )}
       </Fragment>
     );
   } else if (error) {
-    content = <Typography color="error" type="title">Sorry, there was a problem loading the page.</Typography>;
+    content = <Typography color="error" variant="title">Sorry, there was a problem loading the page.</Typography>;
   }
 
   if (content) {

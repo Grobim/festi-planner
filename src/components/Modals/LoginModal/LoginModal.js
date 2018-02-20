@@ -95,7 +95,7 @@ class LoginModal extends Component {
           >
             <AppBar className={classes.appBar}>
               <Toolbar>
-                <Typography type="title" color="inherit" className={classes.flex}>
+                <Typography variant="title" color="inherit" className={classes.flex}>
                   Login
                 </Typography>
                 <IconButton color="inherit" onClick={closeLogin} aria-label="Close">
