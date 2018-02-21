@@ -9,7 +9,15 @@
     "users": {
       ".read": true,
       "$uid": {
-        ".write": "$uid === auth.uid"
+        "displayName": {
+          ".write": "$uid === auth.uid"
+        },
+        "email": {
+          ".write": "$uid === auth.uid"
+        },
+        "photoUrl": {
+          ".write": "$uid === auth.uid"
+        }
       }
     },
     "events": {
