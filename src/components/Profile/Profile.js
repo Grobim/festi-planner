@@ -86,8 +86,8 @@ class Profile extends Component {
     const currentUid = this.props.uid;
     const newUid = newProps.uid;
 
-    const currentName = this.props.user && this.props.user.public.displayName;
-    const newName = newProps.user && newProps.user.public.displayName;
+    const currentName = this.props.user && (this.props.user.public || {}).displayName;
+    const newName = newProps.user && (newProps.user.public || {}).displayName;
 
     if (currentUid !== newUid) {
       const {
@@ -197,7 +197,7 @@ class Profile extends Component {
             <Grid container>
               <Grid item xs={12} className={classes.avatarLayout}>
                 <Icon color="primary">
-                  {user && user.public.photoURL ? (
+                  {user && (user.public || {}).photoURL ? (
                     <Avatar src={user.public.photoURL} className={classes.avatarIcon} />
                   ) : (
                     <AccountCircleIcon className={classes.avatarIcon} />
