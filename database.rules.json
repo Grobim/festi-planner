@@ -7,16 +7,17 @@
       ".write": true
     },
     "users": {
-      ".read": true,
       "$uid": {
-        "displayName": {
+        ".read": "$uid === auth.uid",
+        "publicData": {
+          ".read": true,
           ".write": "$uid === auth.uid"
         },
-        "email": {
-          ".write": "$uid === auth.uid"
-        },
-        "photoUrl": {
-          ".write": "$uid === auth.uid"
+        "privateData": {
+          ".write": "$uid === auth.uid",
+          "email": {
+            ".read": "data.child('public').val() === true"
+          }
         }
       }
     },

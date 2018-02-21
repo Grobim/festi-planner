@@ -8,10 +8,16 @@ import { USER_STATE_CONNECTED } from 'reducers/user';
 import { disconnect } from 'actions/user';
 
 const mapStateToProps = ({
-  plannerApp: { user: { state, photoURL, uid } }
+  plannerApp: {
+    user: {
+      publicData,
+      state,
+      uid
+    }
+  }
 }) => ({
   isConnected: state === USER_STATE_CONNECTED,
-  photoURL,
+  photoURL: (publicData || {}).photoURL,
   uid
 });
 

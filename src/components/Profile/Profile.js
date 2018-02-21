@@ -60,10 +60,10 @@ class Profile extends Component {
   constructor(props) {
     super(props);
 
-    if (props.user.profile) {
+    if (props.user.public) {
       this.state = {
         ...this.state,
-        name: props.user.profile.displayName
+        name: props.user.public.displayName
       };
     }
   }
@@ -86,8 +86,8 @@ class Profile extends Component {
     const currentUid = this.props.uid;
     const newUid = newProps.uid;
 
-    const currentName = this.props.user.profile && this.props.user.profile.displayName;
-    const newName = newProps.user.profile && newProps.user.profile.displayName;
+    const currentName = this.props.user && this.props.user.public.displayName;
+    const newName = newProps.user && newProps.user.public.displayName;
 
     if (currentUid !== newUid) {
       const {
@@ -141,7 +141,7 @@ class Profile extends Component {
       name
     } = this.state;
 
-    if (user.profile.displayName !== name) {
+    if (user.public.displayName !== name) {
       editName(uid, name);
     }
 
@@ -197,8 +197,8 @@ class Profile extends Component {
             <Grid container>
               <Grid item xs={12} className={classes.avatarLayout}>
                 <Icon color="primary">
-                  {user.profile && user.profile.photoURL ? (
-                    <Avatar src={user.profile.photoURL} className={classes.avatarIcon} />
+                  {user && user.public.photoURL ? (
+                    <Avatar src={user.public.photoURL} className={classes.avatarIcon} />
                   ) : (
                     <AccountCircleIcon className={classes.avatarIcon} />
                   )}

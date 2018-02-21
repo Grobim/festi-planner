@@ -44,20 +44,21 @@ export const listenToAuth = () => (dispatch, getState) => {
       userRef.on('value', (snap) => {
         const userProfile = snap.val();
 
-        if (!userProfile) {
-          userRef.set({
-            displayName,
-            photoURL,
-            email
-          });
-
-          // TODO Toast profile
-        } else {
+        if (userProfile) {
           dispatch(connectSuccess({
-            displayName: userProfile.displayName,
-            photoURL: userProfile.photoURL,
-            uid
+            uid,
+            ...userProfile
           }));
+        } else {
+          userRef.set({
+            publicData: {
+              displayName,
+              photoURL,
+            },
+            privateData: {
+              email
+            }
+          });
         }
 
         dispatch(closeLogin());
