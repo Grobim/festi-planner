@@ -13,9 +13,9 @@
       }
     },
     "events": {
-      ".indexOn": ["lowercaseName"],
       "publicData": {
         ".read": true,
+        ".indexOn": ["lowercaseName"],
         "$eventId": {
           ".write": "auth !== null && (data.exists() ? (root.child('events').child('adminData').child($eventId).child('admins').child(auth.uid).val() === true) : (newData.child('createdBy').val() === auth.uid))"
         }
