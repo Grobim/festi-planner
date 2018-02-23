@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import noop from 'lodash/noop';
+import moment from 'moment';
 
 import { withStyles } from 'material-ui/styles';
 
@@ -15,6 +16,15 @@ const styles = theme => ({
   layout: {
     padding: theme.spacing.unit,
     flex: 1
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  input: {
+    flex: 1,
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
   }
 });
 
@@ -43,13 +53,15 @@ class Event extends Component {
     if (props.event.data) {
       this.state = {
         ...this.state,
-        name: props.event.data.name
+        name: props.event.data.name,
+        date: moment(props.event.data.date).format('YYYY-MM-DD')
       };
     }
   }
 
   state = {
-    name: ''
+    name: '',
+    date: ''
   };
 
   componentDidMount() {
@@ -68,6 +80,15 @@ class Event extends Component {
     if (currentName !== newName) {
       this.setState({
         name: newName
+      });
+    }
+
+    const currentDate = this.props.event.data && this.props.event.data.date;
+    const newDate = newProps.event.data && newProps.event.data.date;
+
+    if (currentDate !== newDate) {
+      this.setState({
+        date: moment(newDate).format('YYYY-MM-DD')
       });
     }
 
@@ -100,7 +121,8 @@ class Event extends Component {
     }
 
     const {
-      name
+      name,
+      date
     } = this.state;
 
     const {
@@ -112,7 +134,8 @@ class Event extends Component {
 
     if (isConnected) {
       save(eventId, {
-        name
+        name,
+        date: moment(date).valueOf()
       });
     } else {
       showLogin();
@@ -133,18 +156,31 @@ class Event extends Component {
     } = this.props;
 
     const {
-      name
+      name,
+      date
     } = this.state;
 
     return (
       <Fragment>
         <div className={classes.layout}>
-          <form name="event" onSubmit={this.handleEventSubmit}>
+          <form name="event" className={classes.container} onSubmit={this.handleEventSubmit}>
             <TextField
               id="name"
               label="Name"
               value={name}
+              className={classes.input}
               onChange={this.handleFieldChange('name')}
+            />
+            <TextField
+              id="date"
+              label="Date"
+              type="date"
+              value={date}
+              className={classes.input}
+              onChange={this.handleFieldChange('date')}
+              InputLabelProps={{
+                shrink: true
+              }}
             />
           </form>
         </div>
