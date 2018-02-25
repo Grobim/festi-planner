@@ -103,6 +103,17 @@ exports.onPublicDataCreate = functions.database.ref('events/publicData/{eventId}
     ]);
   });
 
+exports.onPublicDataDelete = functions.database.ref('events/publicData/{eventId}')
+  .onDelete((event) => {
+    const deleteEventId = event.params.eventId;
+    console.log('Deleting', deleteEventId);
+
+    return Promise.all([
+      event.data.adminRef.root.child(`events/memberData/${event.params.eventId}`).remove(),
+      event.data.adminRef.root.child(`events/adminData/${event.params.eventId}`).remove()
+    ]);
+  });
+
 exports.onMemberRoleWrite = functions.database.ref('events/memberData/{eventId}/members/{uid}')
   .onWrite((event) => {
     const isMember = event.data.val();
