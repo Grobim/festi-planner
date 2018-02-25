@@ -25,6 +25,7 @@ export const fetchEvents = () => (dispatch, getState) => {
   firebase.database()
     .ref('events/publicData')
     .orderByChild(query.sort)
+    .startAt(query.startAt)
     .limitToFirst(query.pageSize)
     .once('value')
     .then(snap => snap.val() || {})

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const EVENTS_FETCH_REQUESTED = 'EVENTS_FETCH_REQUESTED';
 export const EVENTS_FETCH_SUCCESS = 'EVENTS_FETCH_SUCCESS';
 
@@ -7,7 +9,8 @@ export const EVENTS_FETCH_STATE_RECEIVED = 'EVENTS_FETCH_STATE_RECEIVED';
 const defaultState = {
   state: null,
   query: {
-    sort: 'lowercaseName',
+    sort: 'date',
+    startAt: moment().startOf('day').valueOf(),
     pageSize: 10
   },
   data: null
