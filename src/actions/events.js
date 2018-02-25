@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 
 import map from 'lodash/map';
+import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 
 import {
@@ -20,10 +21,13 @@ const fetchEventsReveived = payload => ({
 export const fetchEvents = () => (dispatch, getState) => {
   dispatch(fetchEventsRequest());
 
-  const { query } = getState().plannerApp.events;
+  const {
+    user: { uid },
+    events: { query }
+  } = getState().plannerApp;
 
   firebase.database()
-    .ref('events/publicData')
+    .ref(`users/${uid}/events/member`)
     .orderByChild(query.sort)
     .startAt(query.startAt)
     .limitToFirst(query.pageSize)
@@ -35,7 +39,7 @@ export const fetchEvents = () => (dispatch, getState) => {
         ...value
       }));
 
-      dispatch(fetchEventsReveived(sortBy(eventsAsArray, query.sort)));
+      dispatch(fetchEventsReveived(sortBy(filter(eventsAsArray, event => event.isMember), query.sort)));
     });
 };
 
