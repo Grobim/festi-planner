@@ -101,7 +101,7 @@ class AppBar extends Component {
           </IconButton>
           <Typography className={classes.title} variant="title" color="inherit">
             <Link href="/" to="/">
-              FckNyE - Planner
+              Festi - Planner
             </Link>
           </Typography>
           {isConnected ? (

@@ -1,7 +1,7 @@
 {
-  "name": "fcknye-planner",
+  "name": "festi-planner",
   "version": "0.1.0",
-  "homepage": "https://grobim.github.io/fcknye-planner",
+  "homepage": "https://grobim.github.io/festi-planner",
   "private": true,
   "dependencies": {
     "firebase": "^4.8.1",
