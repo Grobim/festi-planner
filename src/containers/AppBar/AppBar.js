@@ -6,19 +6,16 @@ import AppBar from 'components/AppBar';
 import { toggleDrawer, showLogin } from 'actions/ui/global';
 import { USER_STATE_CONNECTED } from 'reducers/user';
 import { disconnect } from 'actions/user';
+import {
+  stateSelector,
+  photoUrlSelector,
+  uidSelector
+} from 'store/selectors/user';
 
-const mapStateToProps = ({
-  plannerApp: {
-    user: {
-      publicData,
-      state,
-      uid
-    }
-  }
-}) => ({
-  isConnected: state === USER_STATE_CONNECTED,
-  photoURL: (publicData || {}).photoURL,
-  uid
+const mapStateToProps = state => ({
+  isConnected: stateSelector(state) === USER_STATE_CONNECTED,
+  photoURL: photoUrlSelector(state),
+  uid: uidSelector(state)
 });
 
 const mapDispatchToPros = dispatch => ({

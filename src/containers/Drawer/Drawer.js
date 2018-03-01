@@ -1,14 +1,15 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
+import { push } from 'react-router-redux';
+
 import Drawer from 'components/Drawer';
 
 import { toggleDrawer } from 'actions/ui/global';
+import { drawerOpenedSelector } from 'store/selectors/ui/global';
 
-import { push } from 'react-router-redux';
-
-const mapStateToProps = ({ plannerApp: { ui: { global: { drawerOpened } } } }) => ({
-  isOpened: drawerOpened
+const mapStateToProps = state => ({
+  isOpened: drawerOpenedSelector(state)
 });
 
 const mapDispatchToProps = dispatch => ({

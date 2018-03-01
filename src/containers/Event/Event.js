@@ -11,20 +11,15 @@ import {
 } from 'actions/event';
 
 import { showActionLoginMessage } from 'actions/ui/global';
+import { eventPublicSelector } from 'store/selectors/event';
+import { stateSelector } from 'store/selectors/user';
 
-const mapStateToProps = ({
-  plannerApp: {
-    event,
-    user: {
-      state
-    }
-  }
-}, {
+const mapStateToProps = (state, {
   params: { eventId }
 }) => ({
-  isConnected: state === USER_STATE_CONNECTED,
-  eventId,
-  event: (event[eventId] || {}).public
+  isConnected: stateSelector(state) === USER_STATE_CONNECTED,
+  event: eventPublicSelector(state),
+  eventId
 });
 
 const mapDispatchToProps = dispatch => ({

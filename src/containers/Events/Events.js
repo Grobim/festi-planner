@@ -6,10 +6,11 @@ import { push } from 'react-router-redux';
 import Events from 'components/Events';
 
 import { fetchEvents } from 'actions/events';
+import { eventsDataSelector } from 'store/selectors/events';
 
-const mapStateToProps = ({ plannerApp: { events: { data } } }) => ({
-  isLoading: !data,
-  events: data
+const mapStateToProps = state => ({
+  isLoading: !eventsDataSelector(state),
+  events: eventsDataSelector(state)
 });
 
 const mapDispatchToProps = dispatch => ({
