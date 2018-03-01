@@ -11,54 +11,54 @@ import {
   UI_CLOSE_LOGIN_MESSAGE
 } from 'reducers/ui/global';
 
-export const toggleDrawer = () => ({
+const toggleDrawer = () => ({
   type: UI_TOGGLE_DRAWER
 });
 
-export const showMessage = message => ({
+const showMessage = message => ({
   type: UI_SHOW_MESSAGE,
   payload: {
     message
   }
 });
 
-export const closeMessage = () => ({
+const closeMessage = () => ({
   type: UI_CLOSE_MESSAGE
 });
 
-export const showError = message => ({
+const showError = message => ({
   type: UI_SHOW_ERROR,
   payload: {
     message
   }
 });
 
-export const closeError = () => ({
+const closeError = () => ({
   type: UI_CLOSE_ERROR
 });
 
-export const showReloadMessage = () => ({
+const showReloadMessage = () => ({
   type: UI_SHOW_RELOAD_MESSAGE
 });
 
-export const showLogin = () => ({
+const showLogin = () => ({
   type: UI_SHOW_LOGIN
 });
 
-export const closeLogin = () => ({
+const closeLogin = () => ({
   type: UI_CLOSE_LOGIN
 });
 
-export const showActionLoginMessage = () => ({
+const showActionLoginMessage = () => ({
   type: UI_SHOW_LOGIN_MESSAGE,
   payload: 'action'
 });
 
-export const closeLoginMessage = () => ({
+const closeLoginMessage = () => ({
   type: UI_CLOSE_LOGIN_MESSAGE
 });
 
-export default {
+export {
   toggleDrawer,
   showMessage,
   closeMessage,

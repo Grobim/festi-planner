@@ -29,7 +29,7 @@ const disconnectSuccess = () => ({
   type: USER_DISCONNECT_SUCCESS
 });
 
-export const listenToAuth = () => (dispatch, getState) => {
+const listenToAuth = () => (dispatch, getState) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       const {
@@ -89,7 +89,7 @@ const signInOrSignUp = (mail, password, dispatch) => {
   );
 };
 
-export const connect = (providerKey, mail, password) => (dispatch) => {
+const connect = (providerKey, mail, password) => (dispatch) => {
   let Provider;
 
   switch (providerKey) {
@@ -136,6 +136,12 @@ export const connect = (providerKey, mail, password) => (dispatch) => {
   }
 };
 
-export const disconnect = () => () => {
+const disconnect = () => () => {
   firebase.auth().signOut();
+};
+
+export {
+  listenToAuth,
+  connect,
+  disconnect
 };

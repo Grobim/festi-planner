@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 
 import { USER_STATE_CONNECTED } from 'reducers/user';
 
-export const authenticatedComponent = (Component, requireConnected = true) => {
+const authenticatedComponent = (Component, requireConnected = true) => {
   class AuthenticatedComponent extends React.Component {
     componentWillMount() {
       this.checkAuth(this.props.isConnected);

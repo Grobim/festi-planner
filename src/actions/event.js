@@ -56,7 +56,7 @@ const saveEventSuccess = (eventId, eventData) => ({
   }
 });
 
-export const createEvent = eventData => (dispatch, getState) => {
+const createEvent = eventData => (dispatch, getState) => {
   dispatch(createEventRequest());
 
   const {
@@ -75,7 +75,7 @@ export const createEvent = eventData => (dispatch, getState) => {
     });
 };
 
-export const syncEvent = eventId => (dispatch) => {
+const syncEvent = eventId => (dispatch) => {
   dispatch(syncPublicEventRequest(eventId));
 
   firebase.database()
@@ -87,7 +87,7 @@ export const syncEvent = eventId => (dispatch) => {
     });
 };
 
-export const unsyncEvent = eventId => (dispatch) => {
+const unsyncEvent = eventId => (dispatch) => {
   firebase.database()
     .ref(`events/publicData/${eventId}`)
     .off('value');
@@ -95,7 +95,7 @@ export const unsyncEvent = eventId => (dispatch) => {
   dispatch(unsyncPublicEventSuccess(eventId));
 };
 
-export const saveEvent = (eventId, eventData) => (dispatch) => {
+const saveEvent = (eventId, eventData) => (dispatch) => {
   dispatch(saveEventRequest(eventId));
 
   const publicPromise = firebase.database()
@@ -114,7 +114,7 @@ export const saveEvent = (eventId, eventData) => (dispatch) => {
   });
 };
 
-export default {
+export {
   createEvent,
   syncEvent,
   unsyncEvent,

@@ -28,7 +28,7 @@ const unsyncedPublicProfile = uid => ({
   }
 });
 
-export const syncProfile = uid => (dispatch) => {
+const syncProfile = uid => (dispatch) => {
   dispatch(syncPublicProfileRequest(uid));
 
   const profileRef = firebase.database()
@@ -39,7 +39,7 @@ export const syncProfile = uid => (dispatch) => {
   });
 };
 
-export const unsyncProfile = uid => (dispatch) => {
+const unsyncProfile = uid => (dispatch) => {
   firebase.database()
     .ref(`users/${uid}/publicData`)
     .off('value');
@@ -47,13 +47,13 @@ export const unsyncProfile = uid => (dispatch) => {
   dispatch(unsyncedPublicProfile(uid));
 };
 
-export const editName = (uid, displayName) => () => {
+const editName = (uid, displayName) => () => {
   firebase.database()
     .ref(`users/${uid}/publicData/displayName`)
     .set(displayName);
 };
 
-export const editAvatar = (uid, avatarFile) => () => {
+const editAvatar = (uid, avatarFile) => () => {
   firebase.storage()
     .ref(`/avatars/${uid}`)
     .put(avatarFile)
@@ -63,7 +63,7 @@ export const editAvatar = (uid, avatarFile) => () => {
       .set(downloadURL));
 };
 
-export default {
+export {
   syncProfile,
   unsyncProfile,
   editName,

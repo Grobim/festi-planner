@@ -39,7 +39,10 @@ export const fetchEvents = () => (dispatch, getState) => {
         ...value
       }));
 
-      dispatch(fetchEventsReveived(sortBy(filter(eventsAsArray, event => event.isMember), query.sort)));
+      dispatch(fetchEventsReveived(sortBy(filter(
+        eventsAsArray,
+        event => event.isMember
+      ), query.sort)));
     });
 };
 

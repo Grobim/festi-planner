@@ -1,10 +1,10 @@
 import moment from 'moment';
 
-export const EVENTS_FETCH_REQUESTED = 'EVENTS_FETCH_REQUESTED';
-export const EVENTS_FETCH_SUCCESS = 'EVENTS_FETCH_SUCCESS';
+const EVENTS_FETCH_REQUESTED = 'EVENTS_FETCH_REQUESTED';
+const EVENTS_FETCH_SUCCESS = 'EVENTS_FETCH_SUCCESS';
 
-export const EVENTS_FETCH_STATE_REQUEST = 'EVENTS_FETCH_STATE_REQUEST';
-export const EVENTS_FETCH_STATE_RECEIVED = 'EVENTS_FETCH_STATE_RECEIVED';
+const EVENTS_FETCH_STATE_REQUEST = 'EVENTS_FETCH_STATE_REQUEST';
+const EVENTS_FETCH_STATE_RECEIVED = 'EVENTS_FETCH_STATE_RECEIVED';
 
 const defaultState = {
   state: null,
@@ -32,6 +32,13 @@ const user = (state = defaultState, action) => {
     default:
       return state;
   }
+};
+
+export {
+  EVENTS_FETCH_REQUESTED,
+  EVENTS_FETCH_SUCCESS,
+  EVENTS_FETCH_STATE_REQUEST,
+  EVENTS_FETCH_STATE_RECEIVED
 };
 
 export default user;
