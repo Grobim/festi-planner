@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
 import Events from 'components/Events';
+import WaitForLogin from 'components/WaitForLogin';
 
 import { fetchEvents } from 'actions/events';
 import { eventsDataSelector } from 'store/selectors/events';
@@ -36,4 +37,6 @@ EventsContainer.propTypes = {
   fetchEvents: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventsContainer);
+const WaitForLoginEvents = WaitForLogin(EventsContainer);
+
+export default connect(mapStateToProps, mapDispatchToProps)(WaitForLoginEvents);
