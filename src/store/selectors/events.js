@@ -1,5 +1,5 @@
 const eventsSelector = state => state.plannerApp.events;
-const eventsDataSelector = state => eventsDataSelector(state).data;
+const eventsDataSelector = state => eventsSelector(state).data;
 
 export {
   eventsSelector,
