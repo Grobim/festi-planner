@@ -9,7 +9,7 @@ const EVENTS_FETCH_STATE_RECEIVED = 'EVENTS_FETCH_STATE_RECEIVED';
 const defaultState = {
   state: null,
   query: {
-    sort: 'eventDate',
+    sort: 'eventStartDate',
     startAt: moment().startOf('day').valueOf(),
     pageSize: 10
   },

@@ -18,7 +18,7 @@ const mapStateToProps = (state, {
   params: { eventId }
 }) => ({
   isConnected: stateSelector(state) === USER_STATE_CONNECTED,
-  event: eventPublicSelector(state),
+  event: eventPublicSelector(state, eventId),
   eventId
 });
 

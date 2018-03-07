@@ -54,14 +54,16 @@ class Event extends Component {
       this.state = {
         ...this.state,
         name: props.event.data.name,
-        date: moment(props.event.data.date).format('YYYY-MM-DD')
+        startDate: moment(props.event.data.startDate).format('YYYY-MM-DD'),
+        endDate: moment(props.event.data.endDate).format('YYYY-MM-DD')
       };
     }
   }
 
   state = {
     name: '',
-    date: ''
+    startDate: '',
+    endDate: ''
   };
 
   componentDidMount() {
@@ -83,12 +85,21 @@ class Event extends Component {
       });
     }
 
-    const currentDate = this.props.event.data && this.props.event.data.date;
-    const newDate = newProps.event.data && newProps.event.data.date;
+    const currentStartDate = this.props.event.data && this.props.event.data.startDate;
+    const newStartDate = newProps.event.data && newProps.event.data.startDate;
 
-    if (currentDate !== newDate) {
+    if (currentStartDate !== newStartDate) {
       this.setState({
-        date: moment(newDate).format('YYYY-MM-DD')
+        startDate: moment(newStartDate).format('YYYY-MM-DD')
+      });
+    }
+
+    const currentEndDate = this.props.event.data && this.props.event.data.endDate;
+    const newEndDate = newProps.event.data && newProps.event.data.endDate;
+
+    if (currentEndDate !== newEndDate) {
+      this.setState({
+        endDate: moment(newEndDate).format('YYYY-MM-DD')
       });
     }
 
@@ -122,7 +133,8 @@ class Event extends Component {
 
     const {
       name,
-      date
+      startDate,
+      endDate
     } = this.state;
 
     const {
@@ -135,7 +147,8 @@ class Event extends Component {
     if (isConnected) {
       save(eventId, {
         name,
-        date: moment(date).valueOf()
+        startDate: moment(startDate).valueOf(),
+        endDate: moment(endDate).valueOf()
       });
     } else {
       showLogin();
@@ -157,7 +170,8 @@ class Event extends Component {
 
     const {
       name,
-      date
+      startDate,
+      endDate
     } = this.state;
 
     return (
@@ -172,12 +186,23 @@ class Event extends Component {
               onChange={this.handleFieldChange('name')}
             />
             <TextField
-              id="date"
-              label="Date"
+              id="startDate"
+              label="Start date"
               type="date"
-              value={date}
+              value={startDate}
               className={classes.input}
-              onChange={this.handleFieldChange('date')}
+              onChange={this.handleFieldChange('startDate')}
+              InputLabelProps={{
+                shrink: true
+              }}
+            />
+            <TextField
+              id="endDate"
+              label="End date"
+              type="date"
+              value={endDate}
+              className={classes.input}
+              onChange={this.handleFieldChange('endDate')}
               InputLabelProps={{
                 shrink: true
               }}

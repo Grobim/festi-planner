@@ -48,11 +48,11 @@ exports.onNameWrite = functions.database.ref('events/publicData/{eventId}/name')
     }).then(() => Promise.all(promises));
   });
 
-exports.onDateWrite = functions.database.ref('events/publicData/{eventId}/date')
+exports.onStartDateWrite = functions.database.ref('events/publicData/{eventId}/startDate')
   .onWrite((event) => {
     const promises = [];
     const newEventDate = event.data.val();
-    console.log(`Date changed... eventId: ${event.params.eventId}. New Value: ${newEventDate}`);
+    console.log(`Start date changed... eventId: ${event.params.eventId}. New Value: ${newEventDate}`);
 
     return Promise.all([
       event.data.adminRef.root.child(`events/memberData/${event.params.eventId}/members`).once('value'),
@@ -61,26 +61,38 @@ exports.onDateWrite = functions.database.ref('events/publicData/{eventId}/date')
       const memberRolesSnap = roles[0];
 
       if (memberRolesSnap.exists()) {
-        console.log(`Updating event date for members: ${JSON.stringify(memberRolesSnap.val())}`);
+        console.log(`Updating event start date for members: ${JSON.stringify(memberRolesSnap.val())}`);
 
         memberRolesSnap.forEach((snap) => {
           if (snap.val() === true) {
             promises.push(event.data.adminRef.root
-              .child(`users/${snap.key}/events/member/${event.params.eventId}/eventDate`)
+              .child(`users/${snap.key}/events/member/${event.params.eventId}/eventStartDate`)
               .set(newEventDate));
           }
         });
       }
+    }).then(() => Promise.all(promises));
+  });
 
-      const adminRolesSnap = roles[1];
+exports.onEndDateWrite = functions.database.ref('events/publicData/{eventId}/endDate')
+  .onWrite((event) => {
+    const promises = [];
+    const newEventDate = event.data.val();
+    console.log(`End date changed... eventId: ${event.params.eventId}. New Value: ${newEventDate}`);
 
-      if (adminRolesSnap.exists()) {
-        console.log(`Updating event date for admins: ${JSON.stringify(adminRolesSnap.val())}`);
+    return Promise.all([
+      event.data.adminRef.root.child(`events/memberData/${event.params.eventId}/members`).once('value'),
+      event.data.adminRef.root.child(`events/adminData/${event.params.eventId}/admins`).once('value')
+    ]).then((roles) => {
+      const memberRolesSnap = roles[0];
 
-        adminRolesSnap.forEach((snap) => {
+      if (memberRolesSnap.exists()) {
+        console.log(`Updating event endDate for members: ${JSON.stringify(memberRolesSnap.val())}`);
+
+        memberRolesSnap.forEach((snap) => {
           if (snap.val() === true) {
             promises.push(event.data.adminRef.root
-              .child(`users/${snap.key}/events/admin/${event.params.eventId}/eventDate`)
+              .child(`users/${snap.key}/events/member/${event.params.eventId}/eventEndDate`)
               .set(newEventDate));
           }
         });
@@ -129,7 +141,8 @@ exports.onMemberRoleWrite = functions.database.ref('events/memberData/{eventId}/
       .then(eventData => roleRef.set({
         isMember: true,
         eventName: eventData.name,
-        eventDate: eventData.date
+        eventStartDate: eventData.startDate,
+        eventEndDate: eventData.endDate
       }));
   });
 
