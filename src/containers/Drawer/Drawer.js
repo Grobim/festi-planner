@@ -7,9 +7,11 @@ import Drawer from 'components/Drawer';
 
 import { toggleDrawer } from 'actions/ui/global';
 import { drawerOpenedSelector } from 'store/selectors/ui/global';
+import { isConnectedSelector } from 'store/selectors/user';
 
 const mapStateToProps = state => ({
-  isOpened: drawerOpenedSelector(state)
+  isOpened: drawerOpenedSelector(state),
+  isConnected: isConnectedSelector(state)
 });
 
 const mapDispatchToProps = dispatch => ({

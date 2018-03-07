@@ -6,10 +6,11 @@ import EventIcon from 'material-ui-icons/Event';
 
 const Drawer = ({
   isOpened,
+  isConnected,
   onDrawerClick,
   goTo
-}) => (
-  <MaterialDrawer open={isOpened} onClose={onDrawerClick}>
+}) => {
+  const ConnectedList = () => (
     <List
       tabIndex={0}
       role="button"
@@ -27,11 +28,20 @@ const Drawer = ({
         <ListItemText primary="Events" />
       </ListItem>
     </List>
-  </MaterialDrawer>
-);
+  );
+
+  const NotConnectedList = () => <ConnectedList />;
+
+  return (
+    <MaterialDrawer open={isOpened} onClose={onDrawerClick}>
+      {isConnected ? <ConnectedList /> : <NotConnectedList />}
+    </MaterialDrawer>
+  );
+};
 
 Drawer.propTypes = {
   isOpened: PropTypes.bool.isRequired,
+  isConnected: PropTypes.bool.isRequired,
   onDrawerClick: PropTypes.func.isRequired,
   goTo: PropTypes.func.isRequired
 };
