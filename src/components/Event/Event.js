@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import noop from 'lodash/noop';
 import moment from 'moment';
 
 import { withStyles } from 'material-ui/styles';
@@ -33,8 +32,6 @@ class Event extends Component {
     isConnected: PropTypes.bool.isRequired,
     eventId: PropTypes.string,
     event: PropTypes.objectOf(PropTypes.any),
-    syncEvent: PropTypes.func,
-    unsyncEvent: PropTypes.func,
     save: PropTypes.func.isRequired,
     showLogin: PropTypes.func.isRequired,
     classes: PropTypes.objectOf(PropTypes.any).isRequired
@@ -42,9 +39,7 @@ class Event extends Component {
 
   static defaultProps = {
     eventId: null,
-    event: {},
-    syncEvent: noop,
-    unsyncEvent: noop
+    event: {}
   };
 
   constructor(props) {
@@ -65,15 +60,6 @@ class Event extends Component {
     startDate: '',
     endDate: ''
   };
-
-  componentDidMount() {
-    const {
-      syncEvent,
-      eventId
-    } = this.props;
-
-    syncEvent(eventId);
-  }
 
   componentWillReceiveProps(newProps) {
     const currentName = this.props.event.data && this.props.event.data.name;
@@ -102,28 +88,6 @@ class Event extends Component {
         endDate: moment(newEndDate).format('YYYY-MM-DD')
       });
     }
-
-    const currentEventId = this.props.eventId;
-    const newEventId = newProps.eventId;
-
-    if (currentEventId !== newEventId) {
-      const {
-        syncEvent,
-        unsyncEvent
-      } = this.props;
-
-      unsyncEvent(currentEventId);
-      syncEvent(newEventId);
-    }
-  }
-
-  componentWillUnmount() {
-    const {
-      unsyncEvent,
-      eventId
-    } = this.props;
-
-    unsyncEvent(eventId);
   }
 
   handleEventSubmit = (event) => {
