@@ -43,8 +43,6 @@ const styles = theme => ({
 
 class Profile extends Component {
   static propTypes = {
-    syncProfile: PropTypes.func.isRequired,
-    unsyncProfile: PropTypes.func.isRequired,
     editName: PropTypes.func.isRequired,
     editAvatar: PropTypes.func.isRequired,
     uid: PropTypes.string.isRequired,
@@ -73,46 +71,15 @@ class Profile extends Component {
     editName: false
   };
 
-  componentDidMount() {
-    const {
-      syncProfile,
-      uid
-    } = this.props;
-
-    syncProfile(uid);
-  }
-
   componentWillReceiveProps(newProps) {
-    const currentUid = this.props.uid;
-    const newUid = newProps.uid;
-
     const currentName = this.props.user && (this.props.user.public || {}).displayName;
     const newName = newProps.user && (newProps.user.public || {}).displayName;
-
-    if (currentUid !== newUid) {
-      const {
-        syncProfile,
-        unsyncProfile
-      } = this.props;
-
-      unsyncProfile(currentUid);
-      syncProfile(newUid);
-    }
 
     if (currentName !== newName) {
       this.setState({
         name: newName
       });
     }
-  }
-
-  componentWillUnmount() {
-    const {
-      unsyncProfile,
-      uid
-    } = this.props;
-
-    unsyncProfile(uid);
   }
 
   handleEditName = () => {
