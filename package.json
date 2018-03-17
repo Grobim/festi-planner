@@ -1,6 +1,6 @@
 {
   "name": "festi-planner",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://grobim.github.io/festi-planner",
   "private": true,
   "dependencies": {
