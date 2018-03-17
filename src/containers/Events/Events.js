@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 import Events from 'components/Events';
 import WaitForLogin from 'components/WaitForLogin';
 
-import { fetchEvents } from 'actions/events';
+import { syncEvents, unsyncEvents } from 'actions/events';
 import { eventsDataSelector } from 'store/selectors/events';
 
 const mapStateToProps = state => ({
@@ -15,8 +15,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchEvents: () => {
-    dispatch(fetchEvents());
+  syncEvents: () => {
+    dispatch(syncEvents());
+  },
+  unsyncEvents: () => {
+    dispatch(unsyncEvents());
   },
   onFabClick: () => {
     dispatch(push('/event/new'));
@@ -25,7 +28,11 @@ const mapDispatchToProps = dispatch => ({
 
 class EventsContainer extends Component {
   componentDidMount() {
-    this.props.fetchEvents();
+    this.props.syncEvents();
+  }
+
+  componentWillUnmount() {
+    this.props.unsyncEvents();
   }
 
   render() {
@@ -34,7 +41,8 @@ class EventsContainer extends Component {
 }
 
 EventsContainer.propTypes = {
-  fetchEvents: PropTypes.func.isRequired
+  syncEvents: PropTypes.func.isRequired,
+  unsyncEvents: PropTypes.func.isRequired
 };
 
 const WaitForLoginEvents = WaitForLogin(EventsContainer);

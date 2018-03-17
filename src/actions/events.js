@@ -5,21 +5,26 @@ import filter from 'lodash/filter';
 import sortBy from 'lodash/sortBy';
 
 import {
-  EVENTS_FETCH_REQUESTED,
-  EVENTS_FETCH_SUCCESS
+  EVENTS_SYNC_REQUESTED,
+  EVENTS_SYNC_SUCCESS,
+  EVENTS_UNSYNCED
 } from 'reducers/events';
 
-const fetchEventsRequest = () => ({
-  type: EVENTS_FETCH_REQUESTED
+const syncEventsRequest = () => ({
+  type: EVENTS_SYNC_REQUESTED
 });
 
-const fetchEventsReveived = payload => ({
-  type: EVENTS_FETCH_SUCCESS,
+const syncEventsReveived = payload => ({
+  type: EVENTS_SYNC_SUCCESS,
   payload
 });
 
-export const fetchEvents = () => (dispatch, getState) => {
-  dispatch(fetchEventsRequest());
+const unsyncedEvents = () => ({
+  type: EVENTS_UNSYNCED
+});
+
+const syncEvents = () => (dispatch, getState) => {
+  dispatch(syncEventsRequest());
 
   const {
     user: { uid },
@@ -31,21 +36,34 @@ export const fetchEvents = () => (dispatch, getState) => {
     .orderByChild(query.sort)
     .startAt(query.startAt)
     .limitToFirst(query.pageSize)
-    .once('value')
-    .then(snap => snap.val() || {})
-    .then((events) => {
+    .on('value', (snap) => {
+      const events = snap.val() || {};
+
       const eventsAsArray = map(events, (value, eventKey) => ({
         eventKey,
         ...value
       }));
 
-      dispatch(fetchEventsReveived(sortBy(filter(
+      dispatch(syncEventsReveived(sortBy(filter(
         eventsAsArray,
         event => event.isMember
       ), query.sort)));
     });
 };
 
-export default {
-  fetchEvents
+const unsyncEvents = () => (dispatch, getState) => {
+  const {
+    user: { uid }
+  } = getState().plannerApp;
+
+  firebase.database()
+    .ref(`users/${uid}/events/member`)
+    .off('value');
+
+  dispatch(unsyncedEvents());
+};
+
+export {
+  syncEvents,
+  unsyncEvents
 };

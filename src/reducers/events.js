@@ -1,10 +1,12 @@
 import moment from 'moment';
 
-const EVENTS_FETCH_REQUESTED = 'EVENTS_FETCH_REQUESTED';
-const EVENTS_FETCH_SUCCESS = 'EVENTS_FETCH_SUCCESS';
+const EVENTS_SYNC_REQUESTED = 'EVENTS_SYNC_REQUESTED';
+const EVENTS_SYNC_SUCCESS = 'EVENTS_SYNC_SUCCESS';
+const EVENTS_UNSYNCED = 'EVENTS_UNSYNCED';
 
-const EVENTS_FETCH_STATE_REQUEST = 'EVENTS_FETCH_STATE_REQUEST';
-const EVENTS_FETCH_STATE_RECEIVED = 'EVENTS_FETCH_STATE_RECEIVED';
+const EVENTS_SYNC_STATE_REQUEST = 'EVENTS_SYNC_STATE_REQUEST';
+const EVENTS_SYNC_STATE_RECEIVED = 'EVENTS_SYNC_STATE_RECEIVED';
+const EVENTS_UNSYNCED_STATE = 'EVENTS_UNSYNCED_STATE';
 
 const defaultState = {
   state: null,
@@ -18,16 +20,21 @@ const defaultState = {
 
 const user = (state = defaultState, action) => {
   switch (action.type) {
-    case EVENTS_FETCH_REQUESTED:
+    case EVENTS_SYNC_REQUESTED:
       return {
         ...state,
-        state: EVENTS_FETCH_STATE_REQUEST
+        state: EVENTS_SYNC_STATE_REQUEST
       };
-    case EVENTS_FETCH_SUCCESS:
+    case EVENTS_SYNC_SUCCESS:
       return {
         ...state,
-        state: EVENTS_FETCH_STATE_RECEIVED,
+        state: EVENTS_SYNC_STATE_RECEIVED,
         data: action.payload
+      };
+    case EVENTS_UNSYNCED:
+      return {
+        ...state,
+        state: EVENTS_UNSYNCED_STATE
       };
     default:
       return state;
@@ -35,10 +42,12 @@ const user = (state = defaultState, action) => {
 };
 
 export {
-  EVENTS_FETCH_REQUESTED,
-  EVENTS_FETCH_SUCCESS,
-  EVENTS_FETCH_STATE_REQUEST,
-  EVENTS_FETCH_STATE_RECEIVED
+  EVENTS_SYNC_REQUESTED,
+  EVENTS_SYNC_SUCCESS,
+  EVENTS_UNSYNCED,
+  EVENTS_SYNC_STATE_REQUEST,
+  EVENTS_SYNC_STATE_RECEIVED,
+  EVENTS_UNSYNCED_STATE
 };
 
 export default user;
