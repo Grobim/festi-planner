@@ -30,7 +30,6 @@ const styles = theme => ({
 class Event extends Component {
   static propTypes = {
     isConnected: PropTypes.bool.isRequired,
-    eventId: PropTypes.string,
     event: PropTypes.objectOf(PropTypes.any),
     save: PropTypes.func.isRequired,
     showLogin: PropTypes.func.isRequired,
@@ -38,7 +37,6 @@ class Event extends Component {
   };
 
   static defaultProps = {
-    eventId: null,
     event: {}
   };
 
@@ -104,12 +102,11 @@ class Event extends Component {
     const {
       save,
       showLogin,
-      eventId,
       isConnected
     } = this.props;
 
     if (isConnected) {
-      save(eventId, {
+      save({
         name,
         startDate: moment(startDate).valueOf(),
         endDate: moment(endDate).valueOf()

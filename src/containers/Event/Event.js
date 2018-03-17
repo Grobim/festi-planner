@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch, { params: { eventId } }) => ({
   unsync: () => {
     dispatch(unsyncEvent(eventId));
   },
-  save: (_, eventData) => {
+  save: (eventData) => {
     dispatch(saveEvent(eventId, eventData));
   },
   showLogin: () => {
