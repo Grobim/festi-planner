@@ -3,8 +3,12 @@ import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
 
+import Event from './Event';
+
 const styles = {
-  layout: {}
+  layout: {
+    flexGrow: 1
+  }
 };
 
 const EventsList = ({
@@ -13,7 +17,9 @@ const EventsList = ({
 }) => (
   <div className={classes.layout}>
     Coucou EventsList
-    <pre>{JSON.stringify(events, null, 2)}</pre>
+    {
+      events.map(event => <Event event={event} key={event.eventKey} />)
+    }
   </div>
 );
 
