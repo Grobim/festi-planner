@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
 
-import loading from 'components/utils/loading';
+import Loading from 'components/Loading';
 
 import AddIcon from 'material-ui-icons/Add';
 
@@ -28,22 +28,20 @@ const Events = ({
   classes,
   events,
   onFabClick
-}) => {
-  const LoadingList = loading({ events }, { size: 70 })(EventsList);
-
-  return (
-    <Fragment>
-      <div className={classes.layout}>
-        <LoadingList loading={isLoading} />
-      </div>
-      <Fab
-        color="primary"
-        content={<AddIcon />}
-        onClick={onFabClick}
-      />
-    </Fragment>
-  );
-};
+}) => (
+  <Fragment>
+    <div className={classes.layout}>
+      <Loading loading={isLoading} loaderProps={{ size: 70 }}>
+        <EventsList events={events} />
+      </Loading>
+    </div>
+    <Fab
+      color="primary"
+      content={<AddIcon />}
+      onClick={onFabClick}
+    />
+  </Fragment>
+);
 
 Events.propTypes = {
   isLoading: PropTypes.bool.isRequired,
