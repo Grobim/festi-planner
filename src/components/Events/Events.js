@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
 
-import { CircularProgress } from 'material-ui/Progress';
+import loading from 'components/utils/loading';
 
 import AddIcon from 'material-ui-icons/Add';
 
@@ -28,22 +28,22 @@ const Events = ({
   classes,
   events,
   onFabClick
-}) => (
-  <Fragment>
-    <div className={classes.layout}>
-      {isLoading ? (
-        <CircularProgress size={70} />
-      ) : (
-        <EventsList events={events} />
-      )}
-    </div>
-    <Fab
-      color="primary"
-      content={<AddIcon />}
-      onClick={onFabClick}
-    />
-  </Fragment>
-);
+}) => {
+  const LoadingList = loading({ events }, { size: 70 })(EventsList);
+
+  return (
+    <Fragment>
+      <div className={classes.layout}>
+        <LoadingList loading={isLoading} />
+      </div>
+      <Fab
+        color="primary"
+        content={<AddIcon />}
+        onClick={onFabClick}
+      />
+    </Fragment>
+  );
+};
 
 Events.propTypes = {
   isLoading: PropTypes.bool.isRequired,
