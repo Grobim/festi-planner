@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
 
-import Event from './Event';
+import Event from './EventContainer';
 
 const styles = {
   layout: {
@@ -18,7 +18,7 @@ const EventsList = ({
   <div className={classes.layout}>
     Coucou EventsList
     {
-      events.map(event => <Event event={event} key={event.eventKey} />)
+      events.map((event, index) => <Event event={event} key={event.eventKey} tabIndex={index} />)
     }
   </div>
 );
